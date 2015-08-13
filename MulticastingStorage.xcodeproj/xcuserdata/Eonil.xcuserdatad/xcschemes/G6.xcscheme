@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4580F41C1B691E9F00C0576F"
-               BuildableName = "G6"
-               BlueprintName = "G6"
-               ReferencedContainer = "container:G6.xcodeproj">
+               BuildableName = "MulticastingStorage"
+               BlueprintName = "MulticastingStorage"
+               ReferencedContainer = "container:MulticastingStorage.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4580F41C1B691E9F00C0576F"
-            BuildableName = "G6"
-            BlueprintName = "G6"
-            ReferencedContainer = "container:G6.xcodeproj">
+            BuildableName = "MulticastingStorage"
+            BlueprintName = "MulticastingStorage"
+            ReferencedContainer = "container:MulticastingStorage.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -53,9 +53,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4580F41C1B691E9F00C0576F"
-            BuildableName = "G6"
-            BlueprintName = "G6"
-            ReferencedContainer = "container:G6.xcodeproj">
+            BuildableName = "MulticastingStorage"
+            BlueprintName = "MulticastingStorage"
+            ReferencedContainer = "container:MulticastingStorage.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4580F41C1B691E9F00C0576F"
-            BuildableName = "G6"
-            BlueprintName = "G6"
-            ReferencedContainer = "container:G6.xcodeproj">
+            BuildableName = "MulticastingStorage"
+            BlueprintName = "MulticastingStorage"
+            ReferencedContainer = "container:MulticastingStorage.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

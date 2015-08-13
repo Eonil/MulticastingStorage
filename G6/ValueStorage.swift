@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 Eonil. All rights reserved.
 //
 
+///	Scalar value storage.
 public class ValueStorage<T>: ValueStorageType {
 
 	private init(_ initialValue: T) {
