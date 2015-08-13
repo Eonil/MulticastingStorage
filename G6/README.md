@@ -29,14 +29,15 @@ Minimised stack depth for easier debugging.
 All notifications are just timing notifications for each mutation events. It 
 does not represents a kind of "state" or implicate any conceptual stuffs.
 
-You can access **ALL** methods of each storage from only one thread. Allowing
-access from multiple thread causes complex locking issue, and that brings
-extra complexity -- that is invisible -- and performance degrade. If you need
-access from another thread, you always have to use a sort of asynchronous 
-data transferring mechanism.
+You can access **ALL** methods of each storage from only one GCD queue. Allowing
+access from multiple queue is possible dangerous becuase global concurrent queue
+does not allow "barriers". If you need access from another queue, you always 
+have to dispatch them explicitly.
+
+(Anyway, this can be allowed later by introducing extra checks)
 
 Mutations are notified, and you cannot perform mutation while inside of this
-notification. Because that break assumption of "current state" and result
+notification. Because that breaks assumption of "current state" and result
 becomes undeterministic.
 
 This sort of safety is guaranteed by assertions. Program will crash if 
@@ -58,7 +59,7 @@ storages cannot be implemented in this type of interfaces.
 
 "No" for Complex and Automatic Data Binding
 -------------------------------------------
-Data binding is a 
+
 
 
 

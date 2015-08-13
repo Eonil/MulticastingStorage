@@ -18,10 +18,12 @@ final class QueueChecker {
 		dispatch_queue_set_specific(_queue, &_KEYMEM, _idptr, nil)
 	}
 	deinit {
+		assert(check())
 		dispatch_queue_set_specific(_queue, &_KEYMEM, nil, nil)
 		_idptr.dealloc(1)
 	}
 
+	///	Can be called from any queue.
 	var queue: dispatch_queue_t {
 		get {
 			return	_queue

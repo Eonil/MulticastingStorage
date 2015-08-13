@@ -11,7 +11,7 @@
 ///	DESIGN GOALS
 ///	------------
 ///
-///	-	Simple intuitive as much as possible.
+///	-	Simple and intuitive as much as possible.
 ///	-	Least encoding/decoding efforts.
 ///	-	Prohibit mutating in event casting.
 ///	-	Prohibit mutating from different threads.
