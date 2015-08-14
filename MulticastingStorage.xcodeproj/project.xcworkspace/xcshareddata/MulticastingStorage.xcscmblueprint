@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "DB99111A89C5E3C26C7640D6805A963455F22D50",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "DB99111A89C5E3C26C7640D6805A963455F22D50" : 0,
+    "FC8DBBA953E548D205F88EA925028C0D6DA341F0" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "0FA46BC6-E4A4-4F55-9700-500987259D6B",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "DB99111A89C5E3C26C7640D6805A963455F22D50" : "MulticastingStorage",
+    "FC8DBBA953E548D205F88EA925028C0D6DA341F0" : ""
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "MulticastingStorage",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "MulticastingStorage.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/Eonil\/MulticastingStorage",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "DB99111A89C5E3C26C7640D6805A963455F22D50"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/Eonil\/Editor",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "FC8DBBA953E548D205F88EA925028C0D6DA341F0"
+    }
+  ]
+}

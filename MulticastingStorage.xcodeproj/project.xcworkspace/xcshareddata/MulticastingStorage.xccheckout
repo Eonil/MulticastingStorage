@@ -7,7 +7,7 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>0FA46BC6-E4A4-4F55-9700-500987259D6B</string>
 	<key>IDESourceControlProjectName</key>
-	<string>project</string>
+	<string>MulticastingStorage</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>DB99111A89C5E3C26C7640D6805A963455F22D50</key>
@@ -16,13 +16,13 @@
 		<string>https://github.com/Eonil/Editor</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>MulticastingStorage.xcodeproj/project.xcworkspace</string>
+	<string>MulticastingStorage.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>DB99111A89C5E3C26C7640D6805A963455F22D50</key>
 		<string>../..</string>
 		<key>FC8DBBA953E548D205F88EA925028C0D6DA341F0</key>
-		<string>../../..</string>
+		<string>../../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/Eonil/MulticastingStorage</string>
@@ -38,7 +38,7 @@
 			<key>IDESourceControlWCCIdentifierKey</key>
 			<string>FC8DBBA953E548D205F88EA925028C0D6DA341F0</string>
 			<key>IDESourceControlWCCName</key>
-			<string></string>
+			<string>..</string>
 		</dict>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>

@@ -48,7 +48,7 @@ final class WeakObjectSet<T: AnyObject>: SequenceType {
 	///
 
 	func insert(delegate: T) {
-		_delegateMap[ObjectIdentifier(delegate)]	=	{ [weak delegate] in return delegate }
+		_delegateMap[ObjectIdentifier(delegate)]	=	{ [weak self, weak delegate] in return delegate }
 	}
 	func remove(delegate: T) {
 		_delegateMap[ObjectIdentifier(delegate)]	=	nil

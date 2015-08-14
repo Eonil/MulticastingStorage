@@ -67,9 +67,14 @@ public class MutableValueStorage<T>: ValueStorage<T>, MutableValueStorageType {
 		}
 		set {
 			_executeWithThreadAndCastingCheck {
-				_delegates.map({ $0.willSet() })
+				let	a	=	Array(_delegates)
+				println(a)
+				for d in a {
+					d.willSet()
+				}
+//				_delegates.map({ $0.willSet() })
 				_value	=	newValue
-				_delegates.map({ $0.didSet() })
+//				_delegates.map({ $0.didSet() })
 			}
 		}
 	}
