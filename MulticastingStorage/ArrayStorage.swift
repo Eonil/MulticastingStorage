@@ -119,7 +119,7 @@ public class MutableArrayStorage<T>: ArrayStorage<T>, MutableArrayStorageType {
 	///
 
 	public func insert<C : CollectionType where C.Generator.Element == T, C.Index.Distance == Int>(newElements: C, atIndex index: Int) {
-		assert(index < _array.count)
+		assert(index <= _array.count)
 		_executeWithChecks {
 			let	range	=	index..<(index + newElements.count)
 			_delegates.map { $0.getOrCrash().willInsertRange(range) }
