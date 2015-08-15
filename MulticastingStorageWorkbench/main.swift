@@ -1,13 +1,12 @@
 //
-//  TestAll.swift
-//  MulticastingStorage
+//  main.swift
+//  MulticastingStorageWorkbench
 //
 //  Created by Hoon H. on 2015/08/15.
 //  Copyright © 2015 Eonil. All rights reserved.
 //
 
 import Foundation
-import XCTest
 @testable import MulticastingStorage
 
 public func testAllMuticastingStorageTests() {
@@ -24,7 +23,7 @@ public func testAllMuticastingStorageTests() {
 		}
 		v.value		=	222
 		v.deregisterDidSet(ObjectIdentifier(v))
-		XCTAssert(ok)
+		assert(ok)
 	}
 
 	run {
@@ -44,7 +43,16 @@ public func testAllMuticastingStorageTests() {
 		v.register(v1)
 		v.value		=	222
 		v.deregister(v1)
-		XCTAssert(v1.markers == [1,2])
+		assert(v1.markers == [1,2])
 	}
-
 }
+
+testAllMuticastingStorageTests()
+
+
+
+
+
+
+
+

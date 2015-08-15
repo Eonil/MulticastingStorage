@@ -8,6 +8,18 @@
 
 import Foundation
 
+//public enum ValueSignal {
+//	case WillSet
+//	case DidSet
+//
+//	func handleWillSet(@noescape handler: ()->()) {
+//
+//	}
+//	func handleDidSet(@noescape handler: ()->()) {
+//
+//	}
+//}
+
 ///	Scalar value storage.
 public class ValueStorage<T>: ValueStorageType {
 
@@ -16,7 +28,8 @@ public class ValueStorage<T>: ValueStorageType {
 		_value		=	initialValue
 	}
 	deinit {
-		assert(_delegates.count == 0, "You must `deregister` all delegates from this storage before this storage object dies.")
+		assert(_handlers.onWillSet.count == 0, "You must `deregister` all delegates from this storage before this storage object dies.")
+		assert(_handlers.onDidSet.count == 0, "You must `deregister` all delegates from this storage before this storage object dies.")
 	}
 
 	///
@@ -29,14 +42,30 @@ public class ValueStorage<T>: ValueStorageType {
 
 	///
 
-	public func register(delegate: ValueStorageDelegate) {
+	public typealias	Handler		=	()->()
+
+	public func registerWillSet(identifier: ObjectIdentifier, handler: Handler) {
 		_executeWithThreadAndCastingCheck {
-			_delegates.insert(_ValueStorageDelegateWeakBox(delegate: delegate))
+			assert(_handlers.onWillSet[identifier] == nil)
+			_handlers.onWillSet[identifier]	=	handler
 		}
 	}
-	public func deregister(delegate: ValueStorageDelegate) {
+	public func registerDidSet(identifier: ObjectIdentifier, handler: Handler) {
 		_executeWithThreadAndCastingCheck {
-			_delegates.remove(_ValueStorageDelegateWeakBox(delegate: delegate))
+			assert(_handlers.onDidSet[identifier] == nil)
+			_handlers.onDidSet[identifier]	=	handler
+		}
+	}
+	public func deregisterWillSet(identifier: ObjectIdentifier) {
+		_executeWithThreadAndCastingCheck {
+			assert(_handlers.onWillSet[identifier] != nil)
+			_handlers.onWillSet[identifier]	=	nil
+		}
+	}
+	public func deregisterDidSet(identifier: ObjectIdentifier) {
+		_executeWithThreadAndCastingCheck {
+			assert(_handlers.onDidSet[identifier] != nil)
+			_handlers.onDidSet[identifier]	=	nil
 		}
 	}
 
@@ -45,7 +74,7 @@ public class ValueStorage<T>: ValueStorageType {
 	private let	_queueChecker	:	QueueChecker
 	private var	_isCasting	=	false
 
-	private var	_delegates	=	OrderingSet<_ValueStorageDelegateWeakBox>()
+	private var	_handlers	=	(onWillSet: [ObjectIdentifier: Handler](), onDidSet: [ObjectIdentifier: Handler]())
 	private var	_value		:	T
 
 	private func _executeWithThreadAndCastingCheck(@noescape run: ()->()) {
@@ -56,7 +85,16 @@ public class ValueStorage<T>: ValueStorageType {
 		_isCasting	=	false
 	}
 }
-
+public extension ValueStorage {
+	public func register(delegate: ValueStorageDelegate) {
+		registerWillSet(ObjectIdentifier(delegate)) { [weak delegate] in assert(delegate != nil); delegate!.willSet() }
+		registerDidSet(ObjectIdentifier(delegate)) { [weak delegate] in assert(delegate != nil); delegate!.didSet() }
+	}
+	public func deregister(delegate: ValueStorageDelegate) {
+		deregisterWillSet(ObjectIdentifier(delegate))
+		deregisterDidSet(ObjectIdentifier(delegate))
+	}
+}
 
 
 public class MutableValueStorage<T>: ValueStorage<T>, MutableValueStorageType {
@@ -86,9 +124,17 @@ public class MutableValueStorage<T>: ValueStorage<T>, MutableValueStorageType {
 		}
 		set {
 			_executeWithThreadAndCastingCheck {
-				_delegates.map { $0.getOrCrash().willSet() }
+
+				//	`Dictionary.values.map` has a bug that does not iterate any value.
+				//	Do not use it.
+
+				for handler in _handlers.onWillSet.values {
+					handler()
+				}
 				_value	=	newValue
-				_delegates.map { $0.getOrCrash().didSet() }
+				for handler in _handlers.onDidSet.values {
+					handler()
+				}
 			}
 		}
 	}
@@ -107,28 +153,4 @@ public class MutableValueStorage<T>: ValueStorage<T>, MutableValueStorageType {
 
 
 
-
-
-
-private struct _ValueStorageDelegateWeakBox: Hashable {
-	weak var delegate: ValueStorageDelegate?
-	var hashValue: Int {
-		get {
-			return	ObjectIdentifier(delegate!).hashValue
-		}
-	}
-	func getOrCrash() -> ValueStorageDelegate {
-		if let delegate = delegate {
-			return	delegate
-		}
-		else {
-			fatalError("The delegate has already been gone away...")
-		}
-	}
-}
-private func == (a: _ValueStorageDelegateWeakBox, b: _ValueStorageDelegateWeakBox) -> Bool {
-	let	a1	=	a.getOrCrash()
-	let	b1	=	b.getOrCrash()
-	return	a1 === b1
-}
 

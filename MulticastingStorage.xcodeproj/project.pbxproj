@@ -7,10 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		451372541B7ED50D00ED9829 /* MulticastingStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 451372531B7ED50D00ED9829 /* MulticastingStorage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4513725B1B7ED50D00ED9829 /* MulticastingStorage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 451372511B7ED50D00ED9829 /* MulticastingStorage.framework */; };
 		451372601B7ED50D00ED9829 /* MulticastingStorageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4513725F1B7ED50D00ED9829 /* MulticastingStorageTests.swift */; };
 		451372691B7ED55700ED9829 /* TestAll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 451372681B7ED55700ED9829 /* TestAll.swift */; };
+		455EE1C81B7EDAFE00D5AA56 /* StorageProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4580F5071B6C987800C0576F /* StorageProtocols.swift */; };
+		455EE1C91B7EDAFE00D5AA56 /* ValueStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4580F5091B6C987800C0576F /* ValueStorage.swift */; };
+		455EE1CA1B7EDAFE00D5AA56 /* ArrayStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4580F5051B6C987800C0576F /* ArrayStorage.swift */; };
+		455EE1CB1B7EDAFE00D5AA56 /* ThreadChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4580F5081B6C987800C0576F /* ThreadChecker.swift */; };
+		455EE1CC1B7EDAFE00D5AA56 /* QueueChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 451A5E381B7C209A009F60EB /* QueueChecker.swift */; };
+		455EE1CD1B7EDAFE00D5AA56 /* WeakObjectSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4580F50A1B6C987800C0576F /* WeakObjectSet.swift */; };
+		455EE1CE1B7EDAFE00D5AA56 /* OrderingSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 451372481B7ECBE500ED9829 /* OrderingSet.swift */; };
+		455EE1CF1B7EDAFE00D5AA56 /* Atomics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AAB7851B72E320005C6668 /* Atomics.swift */; };
+		455EE22D1B7EEF9000D5AA56 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455EE22C1B7EEF9000D5AA56 /* main.swift */; };
+		455EE23C1B7EEFF700D5AA56 /* ArrayStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4580F5051B6C987800C0576F /* ArrayStorage.swift */; };
+		455EE23D1B7EEFF700D5AA56 /* QueueChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 451A5E381B7C209A009F60EB /* QueueChecker.swift */; };
+		455EE23E1B7EEFF700D5AA56 /* ValueStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4580F5091B6C987800C0576F /* ValueStorage.swift */; };
+		455EE23F1B7EEFF700D5AA56 /* WeakObjectSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4580F50A1B6C987800C0576F /* WeakObjectSet.swift */; };
+		455EE2401B7EEFF700D5AA56 /* Atomics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AAB7851B72E320005C6668 /* Atomics.swift */; };
+		455EE2411B7EEFF700D5AA56 /* OrderingSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 451372481B7ECBE500ED9829 /* OrderingSet.swift */; };
+		455EE2421B7EEFF700D5AA56 /* StorageProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4580F5071B6C987800C0576F /* StorageProtocols.swift */; };
+		455EE2431B7EEFF700D5AA56 /* ThreadChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4580F5081B6C987800C0576F /* ThreadChecker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -23,10 +39,21 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		455EE2281B7EEF9000D5AA56 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		451372481B7ECBE500ED9829 /* OrderingSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderingSet.swift; sourceTree = "<group>"; };
 		451372511B7ED50D00ED9829 /* MulticastingStorage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MulticastingStorage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		451372531B7ED50D00ED9829 /* MulticastingStorage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MulticastingStorage.h; sourceTree = "<group>"; };
 		451372551B7ED50D00ED9829 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4513725A1B7ED50D00ED9829 /* MulticastingStorageTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MulticastingStorageTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4513725F1B7ED50D00ED9829 /* MulticastingStorageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MulticastingStorageTests.swift; sourceTree = "<group>"; };
@@ -34,6 +61,8 @@
 		451372681B7ED55700ED9829 /* TestAll.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestAll.swift; sourceTree = "<group>"; };
 		4513726A1B7ED58D00ED9829 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		451A5E381B7C209A009F60EB /* QueueChecker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueueChecker.swift; sourceTree = "<group>"; };
+		455EE22A1B7EEF9000D5AA56 /* MulticastingStorageWorkbench */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = MulticastingStorageWorkbench; sourceTree = BUILT_PRODUCTS_DIR; };
+		455EE22C1B7EEF9000D5AA56 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		4580F5051B6C987800C0576F /* ArrayStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayStorage.swift; sourceTree = "<group>"; };
 		4580F5071B6C987800C0576F /* StorageProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageProtocols.swift; sourceTree = "<group>"; };
 		4580F5081B6C987800C0576F /* ThreadChecker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThreadChecker.swift; sourceTree = "<group>"; };
@@ -58,6 +87,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		455EE2271B7EEF9000D5AA56 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -72,7 +108,6 @@
 				4580F50A1B6C987800C0576F /* WeakObjectSet.swift */,
 				451372481B7ECBE500ED9829 /* OrderingSet.swift */,
 				45AAB7851B72E320005C6668 /* Atomics.swift */,
-				451372531B7ED50D00ED9829 /* MulticastingStorage.h */,
 				451372551B7ED50D00ED9829 /* Info.plist */,
 			);
 			path = MulticastingStorage;
@@ -88,12 +123,21 @@
 			path = MulticastingStorageTests;
 			sourceTree = "<group>";
 		};
+		455EE22B1B7EEF9000D5AA56 /* MulticastingStorageWorkbench */ = {
+			isa = PBXGroup;
+			children = (
+				455EE22C1B7EEF9000D5AA56 /* main.swift */,
+			);
+			path = MulticastingStorageWorkbench;
+			sourceTree = "<group>";
+		};
 		4580F4141B691E9F00C0576F = {
 			isa = PBXGroup;
 			children = (
 				4513726A1B7ED58D00ED9829 /* README.md */,
 				451372521B7ED50D00ED9829 /* MulticastingStorage */,
 				4513725E1B7ED50D00ED9829 /* MulticastingStorageTests */,
+				455EE22B1B7EEF9000D5AA56 /* MulticastingStorageWorkbench */,
 				4580F41E1B691E9F00C0576F /* Products */,
 			);
 			sourceTree = "<group>";
@@ -103,6 +147,7 @@
 			children = (
 				451372511B7ED50D00ED9829 /* MulticastingStorage.framework */,
 				4513725A1B7ED50D00ED9829 /* MulticastingStorageTests.xctest */,
+				455EE22A1B7EEF9000D5AA56 /* MulticastingStorageWorkbench */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -114,7 +159,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				451372541B7ED50D00ED9829 /* MulticastingStorage.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -157,6 +201,23 @@
 			productReference = 4513725A1B7ED50D00ED9829 /* MulticastingStorageTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		455EE2291B7EEF9000D5AA56 /* MulticastingStorageWorkbench */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 455EE22E1B7EEF9000D5AA56 /* Build configuration list for PBXNativeTarget "MulticastingStorageWorkbench" */;
+			buildPhases = (
+				455EE2261B7EEF9000D5AA56 /* Sources */,
+				455EE2271B7EEF9000D5AA56 /* Frameworks */,
+				455EE2281B7EEF9000D5AA56 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MulticastingStorageWorkbench;
+			productName = MulticastingStorageWorkbench;
+			productReference = 455EE22A1B7EEF9000D5AA56 /* MulticastingStorageWorkbench */;
+			productType = "com.apple.product-type.tool";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -165,13 +226,16 @@
 			attributes = {
 				LastSwiftMigration = 0700;
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0640;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = Eonil;
 				TargetAttributes = {
 					451372501B7ED50D00ED9829 = {
 						CreatedOnToolsVersion = 7.0;
 					};
 					451372591B7ED50D00ED9829 = {
+						CreatedOnToolsVersion = 7.0;
+					};
+					455EE2291B7EEF9000D5AA56 = {
 						CreatedOnToolsVersion = 7.0;
 					};
 				};
@@ -190,6 +254,7 @@
 			targets = (
 				451372501B7ED50D00ED9829 /* MulticastingStorage */,
 				451372591B7ED50D00ED9829 /* MulticastingStorageTests */,
+				455EE2291B7EEF9000D5AA56 /* MulticastingStorageWorkbench */,
 			);
 		};
 /* End PBXProject section */
@@ -216,6 +281,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				455EE1CF1B7EDAFE00D5AA56 /* Atomics.swift in Sources */,
+				455EE1CC1B7EDAFE00D5AA56 /* QueueChecker.swift in Sources */,
+				455EE1C81B7EDAFE00D5AA56 /* StorageProtocols.swift in Sources */,
+				455EE1C91B7EDAFE00D5AA56 /* ValueStorage.swift in Sources */,
+				455EE1CD1B7EDAFE00D5AA56 /* WeakObjectSet.swift in Sources */,
+				455EE1CA1B7EDAFE00D5AA56 /* ArrayStorage.swift in Sources */,
+				455EE1CB1B7EDAFE00D5AA56 /* ThreadChecker.swift in Sources */,
+				455EE1CE1B7EDAFE00D5AA56 /* OrderingSet.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -225,6 +298,22 @@
 			files = (
 				451372601B7ED50D00ED9829 /* MulticastingStorageTests.swift in Sources */,
 				451372691B7ED55700ED9829 /* TestAll.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		455EE2261B7EEF9000D5AA56 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				455EE23D1B7EEFF700D5AA56 /* QueueChecker.swift in Sources */,
+				455EE23F1B7EEFF700D5AA56 /* WeakObjectSet.swift in Sources */,
+				455EE2401B7EEFF700D5AA56 /* Atomics.swift in Sources */,
+				455EE2421B7EEFF700D5AA56 /* StorageProtocols.swift in Sources */,
+				455EE22D1B7EEF9000D5AA56 /* main.swift in Sources */,
+				455EE2431B7EEFF700D5AA56 /* ThreadChecker.swift in Sources */,
+				455EE23C1B7EEFF700D5AA56 /* ArrayStorage.swift in Sources */,
+				455EE23E1B7EEFF700D5AA56 /* ValueStorage.swift in Sources */,
+				455EE2411B7EEFF700D5AA56 /* OrderingSet.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -305,6 +394,20 @@
 			};
 			name = Release;
 		};
+		455EE22F1B7EEF9000D5AA56 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		455EE2301B7EEF9000D5AA56 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		4580F4221B691E9F00C0576F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -325,6 +428,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -393,12 +497,22 @@
 				451372641B7ED50D00ED9829 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		451372651B7ED50D00ED9829 /* Build configuration list for PBXNativeTarget "MulticastingStorageTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				451372661B7ED50D00ED9829 /* Debug */,
 				451372671B7ED50D00ED9829 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		455EE22E1B7EEF9000D5AA56 /* Build configuration list for PBXNativeTarget "MulticastingStorageWorkbench" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				455EE22F1B7EEF9000D5AA56 /* Debug */,
+				455EE2301B7EEF9000D5AA56 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 		};

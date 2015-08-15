@@ -34,7 +34,7 @@ class MulticastingStorageTests: XCTestCase {
     }
 
 	func testAll() {
-
+		testAllMuticastingStorageTests()
 	}
 
 }

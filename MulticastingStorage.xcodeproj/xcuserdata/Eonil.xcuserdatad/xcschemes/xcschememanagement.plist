@@ -3,7 +3,13 @@
 <plist version="1.0">
 <dict>
 	<key>SchemeUserState</key>
-	<dict/>
+	<dict>
+		<key>MulticastingStorageWorkbench.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
+	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>451372501B7ED50D00ED9829</key>
@@ -12,6 +18,11 @@
 			<true/>
 		</dict>
 		<key>451372591B7ED50D00ED9829</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>455EE2291B7EEF9000D5AA56</key>
 		<dict>
 			<key>primary</key>
 			<true/>
