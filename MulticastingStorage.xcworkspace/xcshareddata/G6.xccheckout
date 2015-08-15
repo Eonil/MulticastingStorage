@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>2B88DF17-49E8-47BB-9AF1-6CC9D7FB8B76</string>
+	<key>IDESourceControlProjectName</key>
+	<string>G6</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>DB99111A89C5E3C26C7640D6805A963455F22D50</key>
+		<string>https://github.com/Eonil/MulticastingStorage</string>
+		<key>FC8DBBA953E548D205F88EA925028C0D6DA341F0</key>
+		<string>https://github.com/Eonil/Editor</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>G6.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>DB99111A89C5E3C26C7640D6805A963455F22D50</key>
+		<string>../..</string>
+		<key>FC8DBBA953E548D205F88EA925028C0D6DA341F0</key>
+		<string>../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/Eonil/MulticastingStorage</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>DB99111A89C5E3C26C7640D6805A963455F22D50</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>FC8DBBA953E548D205F88EA925028C0D6DA341F0</string>
+			<key>IDESourceControlWCCName</key>
+			<string>..</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>DB99111A89C5E3C26C7640D6805A963455F22D50</string>
+			<key>IDESourceControlWCCName</key>
+			<string>MulticastingStorage</string>
+		</dict>
+	</array>
+</dict>
+</plist>

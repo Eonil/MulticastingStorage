@@ -7,36 +7,34 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		451372491B7ECBE500ED9829 /* OrderingSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 451372481B7ECBE500ED9829 /* OrderingSet.swift */; };
-		451A5E391B7C209A009F60EB /* QueueChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 451A5E381B7C209A009F60EB /* QueueChecker.swift */; };
-		4580F50B1B6C987800C0576F /* ArrayStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4580F5051B6C987800C0576F /* ArrayStorage.swift */; };
-		4580F50C1B6C987800C0576F /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4580F5061B6C987800C0576F /* main.swift */; };
-		4580F50D1B6C987800C0576F /* StorageProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4580F5071B6C987800C0576F /* StorageProtocols.swift */; };
-		4580F50E1B6C987800C0576F /* ThreadChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4580F5081B6C987800C0576F /* ThreadChecker.swift */; };
-		4580F50F1B6C987800C0576F /* ValueStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4580F5091B6C987800C0576F /* ValueStorage.swift */; };
-		4580F5101B6C987800C0576F /* WeakObjectSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4580F50A1B6C987800C0576F /* WeakObjectSet.swift */; };
-		45AAB7861B72E320005C6668 /* Atomics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AAB7851B72E320005C6668 /* Atomics.swift */; };
+		451372541B7ED50D00ED9829 /* MulticastingStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 451372531B7ED50D00ED9829 /* MulticastingStorage.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4513725B1B7ED50D00ED9829 /* MulticastingStorage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 451372511B7ED50D00ED9829 /* MulticastingStorage.framework */; };
+		451372601B7ED50D00ED9829 /* MulticastingStorageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4513725F1B7ED50D00ED9829 /* MulticastingStorageTests.swift */; };
+		451372691B7ED55700ED9829 /* TestAll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 451372681B7ED55700ED9829 /* TestAll.swift */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		4580F41B1B691E9F00C0576F /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 1;
+/* Begin PBXContainerItemProxy section */
+		4513725C1B7ED50D00ED9829 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4580F4151B691E9F00C0576F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 451372501B7ED50D00ED9829;
+			remoteInfo = MulticastingStorage;
 		};
-/* End PBXCopyFilesBuildPhase section */
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		451372481B7ECBE500ED9829 /* OrderingSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderingSet.swift; sourceTree = "<group>"; };
+		451372511B7ED50D00ED9829 /* MulticastingStorage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MulticastingStorage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		451372531B7ED50D00ED9829 /* MulticastingStorage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MulticastingStorage.h; sourceTree = "<group>"; };
+		451372551B7ED50D00ED9829 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4513725A1B7ED50D00ED9829 /* MulticastingStorageTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MulticastingStorageTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4513725F1B7ED50D00ED9829 /* MulticastingStorageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MulticastingStorageTests.swift; sourceTree = "<group>"; };
+		451372611B7ED50D00ED9829 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		451372681B7ED55700ED9829 /* TestAll.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestAll.swift; sourceTree = "<group>"; };
+		4513726A1B7ED58D00ED9829 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		451A5E381B7C209A009F60EB /* QueueChecker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueueChecker.swift; sourceTree = "<group>"; };
-		4580F41D1B691E9F00C0576F /* MulticastingStorage */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = MulticastingStorage; sourceTree = BUILT_PRODUCTS_DIR; };
-		4580F4621B6C889700C0576F /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		4580F5051B6C987800C0576F /* ArrayStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayStorage.swift; sourceTree = "<group>"; };
-		4580F5061B6C987800C0576F /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		4580F5071B6C987800C0576F /* StorageProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageProtocols.swift; sourceTree = "<group>"; };
 		4580F5081B6C987800C0576F /* ThreadChecker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThreadChecker.swift; sourceTree = "<group>"; };
 		4580F5091B6C987800C0576F /* ValueStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValueStorage.swift; sourceTree = "<group>"; };
@@ -45,37 +43,27 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		4580F41A1B691E9F00C0576F /* Frameworks */ = {
+		4513724D1B7ED50D00ED9829 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		451372571B7ED50D00ED9829 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4513725B1B7ED50D00ED9829 /* MulticastingStorage.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		4580F4141B691E9F00C0576F = {
+		451372521B7ED50D00ED9829 /* MulticastingStorage */ = {
 			isa = PBXGroup;
 			children = (
-				4580F41F1B691E9F00C0576F /* G6 */,
-				4580F41E1B691E9F00C0576F /* Products */,
-			);
-			sourceTree = "<group>";
-		};
-		4580F41E1B691E9F00C0576F /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				4580F41D1B691E9F00C0576F /* MulticastingStorage */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		4580F41F1B691E9F00C0576F /* G6 */ = {
-			isa = PBXGroup;
-			children = (
-				4580F4621B6C889700C0576F /* README.md */,
-				4580F5061B6C987800C0576F /* main.swift */,
 				4580F5071B6C987800C0576F /* StorageProtocols.swift */,
 				4580F5091B6C987800C0576F /* ValueStorage.swift */,
 				4580F5051B6C987800C0576F /* ArrayStorage.swift */,
@@ -84,29 +72,90 @@
 				4580F50A1B6C987800C0576F /* WeakObjectSet.swift */,
 				451372481B7ECBE500ED9829 /* OrderingSet.swift */,
 				45AAB7851B72E320005C6668 /* Atomics.swift */,
+				451372531B7ED50D00ED9829 /* MulticastingStorage.h */,
+				451372551B7ED50D00ED9829 /* Info.plist */,
 			);
-			path = G6;
+			path = MulticastingStorage;
+			sourceTree = "<group>";
+		};
+		4513725E1B7ED50D00ED9829 /* MulticastingStorageTests */ = {
+			isa = PBXGroup;
+			children = (
+				4513725F1B7ED50D00ED9829 /* MulticastingStorageTests.swift */,
+				451372681B7ED55700ED9829 /* TestAll.swift */,
+				451372611B7ED50D00ED9829 /* Info.plist */,
+			);
+			path = MulticastingStorageTests;
+			sourceTree = "<group>";
+		};
+		4580F4141B691E9F00C0576F = {
+			isa = PBXGroup;
+			children = (
+				4513726A1B7ED58D00ED9829 /* README.md */,
+				451372521B7ED50D00ED9829 /* MulticastingStorage */,
+				4513725E1B7ED50D00ED9829 /* MulticastingStorageTests */,
+				4580F41E1B691E9F00C0576F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		4580F41E1B691E9F00C0576F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				451372511B7ED50D00ED9829 /* MulticastingStorage.framework */,
+				4513725A1B7ED50D00ED9829 /* MulticastingStorageTests.xctest */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		4513724E1B7ED50D00ED9829 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				451372541B7ED50D00ED9829 /* MulticastingStorage.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
-		4580F41C1B691E9F00C0576F /* MulticastingStorage */ = {
+		451372501B7ED50D00ED9829 /* MulticastingStorage */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4580F4241B691E9F00C0576F /* Build configuration list for PBXNativeTarget "MulticastingStorage" */;
+			buildConfigurationList = 451372621B7ED50D00ED9829 /* Build configuration list for PBXNativeTarget "MulticastingStorage" */;
 			buildPhases = (
-				4580F4191B691E9F00C0576F /* Sources */,
-				4580F41A1B691E9F00C0576F /* Frameworks */,
-				4580F41B1B691E9F00C0576F /* CopyFiles */,
+				4513724C1B7ED50D00ED9829 /* Sources */,
+				4513724D1B7ED50D00ED9829 /* Frameworks */,
+				4513724E1B7ED50D00ED9829 /* Headers */,
+				4513724F1B7ED50D00ED9829 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = MulticastingStorage;
-			productName = G6;
-			productReference = 4580F41D1B691E9F00C0576F /* MulticastingStorage */;
-			productType = "com.apple.product-type.tool";
+			productName = MulticastingStorage;
+			productReference = 451372511B7ED50D00ED9829 /* MulticastingStorage.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		451372591B7ED50D00ED9829 /* MulticastingStorageTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 451372651B7ED50D00ED9829 /* Build configuration list for PBXNativeTarget "MulticastingStorageTests" */;
+			buildPhases = (
+				451372561B7ED50D00ED9829 /* Sources */,
+				451372571B7ED50D00ED9829 /* Frameworks */,
+				451372581B7ED50D00ED9829 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4513725D1B7ED50D00ED9829 /* PBXTargetDependency */,
+			);
+			name = MulticastingStorageTests;
+			productName = MulticastingStorageTests;
+			productReference = 4513725A1B7ED50D00ED9829 /* MulticastingStorageTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -119,8 +168,11 @@
 				LastUpgradeCheck = 0640;
 				ORGANIZATIONNAME = Eonil;
 				TargetAttributes = {
-					4580F41C1B691E9F00C0576F = {
-						CreatedOnToolsVersion = 6.4;
+					451372501B7ED50D00ED9829 = {
+						CreatedOnToolsVersion = 7.0;
+					};
+					451372591B7ED50D00ED9829 = {
+						CreatedOnToolsVersion = 7.0;
 					};
 				};
 			};
@@ -136,31 +188,123 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				4580F41C1B691E9F00C0576F /* MulticastingStorage */,
+				451372501B7ED50D00ED9829 /* MulticastingStorage */,
+				451372591B7ED50D00ED9829 /* MulticastingStorageTests */,
 			);
 		};
 /* End PBXProject section */
 
+/* Begin PBXResourcesBuildPhase section */
+		4513724F1B7ED50D00ED9829 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		451372581B7ED50D00ED9829 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
-		4580F4191B691E9F00C0576F /* Sources */ = {
+		4513724C1B7ED50D00ED9829 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4580F50E1B6C987800C0576F /* ThreadChecker.swift in Sources */,
-				4580F50B1B6C987800C0576F /* ArrayStorage.swift in Sources */,
-				45AAB7861B72E320005C6668 /* Atomics.swift in Sources */,
-				451372491B7ECBE500ED9829 /* OrderingSet.swift in Sources */,
-				4580F50F1B6C987800C0576F /* ValueStorage.swift in Sources */,
-				4580F50C1B6C987800C0576F /* main.swift in Sources */,
-				4580F50D1B6C987800C0576F /* StorageProtocols.swift in Sources */,
-				4580F5101B6C987800C0576F /* WeakObjectSet.swift in Sources */,
-				451A5E391B7C209A009F60EB /* QueueChecker.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		451372561B7ED50D00ED9829 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				451372601B7ED50D00ED9829 /* MulticastingStorageTests.swift in Sources */,
+				451372691B7ED55700ED9829 /* TestAll.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		4513725D1B7ED50D00ED9829 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 451372501B7ED50D00ED9829 /* MulticastingStorage */;
+			targetProxy = 4513725C1B7ED50D00ED9829 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		451372631B7ED50D00ED9829 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = MulticastingStorage/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = Eonil.MulticastingStorage;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		451372641B7ED50D00ED9829 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = MulticastingStorage/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = Eonil.MulticastingStorage;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		451372661B7ED50D00ED9829 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_TESTABILITY = YES;
+				INFOPLIST_FILE = MulticastingStorageTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = Eonil.MulticastingStorageTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		451372671B7ED50D00ED9829 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = MulticastingStorageTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = Eonil.MulticastingStorageTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		4580F4221B691E9F00C0576F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -239,37 +383,30 @@
 			};
 			name = Release;
 		};
-		4580F4251B691E9F00C0576F /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				PRODUCT_NAME = MulticastingStorage;
-			};
-			name = Debug;
-		};
-		4580F4261B691E9F00C0576F /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				PRODUCT_NAME = MulticastingStorage;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		451372621B7ED50D00ED9829 /* Build configuration list for PBXNativeTarget "MulticastingStorage" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				451372631B7ED50D00ED9829 /* Debug */,
+				451372641B7ED50D00ED9829 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		451372651B7ED50D00ED9829 /* Build configuration list for PBXNativeTarget "MulticastingStorageTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				451372661B7ED50D00ED9829 /* Debug */,
+				451372671B7ED50D00ED9829 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		4580F4181B691E9F00C0576F /* Build configuration list for PBXProject "MulticastingStorage" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4580F4221B691E9F00C0576F /* Debug */,
 				4580F4231B691E9F00C0576F /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		4580F4241B691E9F00C0576F /* Build configuration list for PBXNativeTarget "MulticastingStorage" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				4580F4251B691E9F00C0576F /* Debug */,
-				4580F4261B691E9F00C0576F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
