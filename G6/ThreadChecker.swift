@@ -17,6 +17,7 @@ import Foundation
 ///
 ///	Anyway, this guarantees to produce correct result for main-thread.
 ///
+@available(*, deprecated=0)
 final class ThreadChecker {
 	init() {
 		_startingThreadIsMainThread	=	NSThread.isMainThread()

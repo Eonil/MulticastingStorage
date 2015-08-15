@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		451372491B7ECBE500ED9829 /* OrderingSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 451372481B7ECBE500ED9829 /* OrderingSet.swift */; };
 		451A5E391B7C209A009F60EB /* QueueChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 451A5E381B7C209A009F60EB /* QueueChecker.swift */; };
 		4580F50B1B6C987800C0576F /* ArrayStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4580F5051B6C987800C0576F /* ArrayStorage.swift */; };
 		4580F50C1B6C987800C0576F /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4580F5061B6C987800C0576F /* main.swift */; };
@@ -30,6 +31,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		451372481B7ECBE500ED9829 /* OrderingSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderingSet.swift; sourceTree = "<group>"; };
 		451A5E381B7C209A009F60EB /* QueueChecker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueueChecker.swift; sourceTree = "<group>"; };
 		4580F41D1B691E9F00C0576F /* MulticastingStorage */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = MulticastingStorage; sourceTree = BUILT_PRODUCTS_DIR; };
 		4580F4621B6C889700C0576F /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -75,11 +77,12 @@
 				4580F4621B6C889700C0576F /* README.md */,
 				4580F5061B6C987800C0576F /* main.swift */,
 				4580F5071B6C987800C0576F /* StorageProtocols.swift */,
-				4580F5051B6C987800C0576F /* ArrayStorage.swift */,
 				4580F5091B6C987800C0576F /* ValueStorage.swift */,
+				4580F5051B6C987800C0576F /* ArrayStorage.swift */,
 				4580F5081B6C987800C0576F /* ThreadChecker.swift */,
 				451A5E381B7C209A009F60EB /* QueueChecker.swift */,
 				4580F50A1B6C987800C0576F /* WeakObjectSet.swift */,
+				451372481B7ECBE500ED9829 /* OrderingSet.swift */,
 				45AAB7851B72E320005C6668 /* Atomics.swift */,
 			);
 			path = G6;
@@ -111,6 +114,7 @@
 		4580F4151B691E9F00C0576F /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftMigration = 0700;
 				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0640;
 				ORGANIZATIONNAME = Eonil;
@@ -145,6 +149,7 @@
 				4580F50E1B6C987800C0576F /* ThreadChecker.swift in Sources */,
 				4580F50B1B6C987800C0576F /* ArrayStorage.swift in Sources */,
 				45AAB7861B72E320005C6668 /* Atomics.swift in Sources */,
+				451372491B7ECBE500ED9829 /* OrderingSet.swift in Sources */,
 				4580F50F1B6C987800C0576F /* ValueStorage.swift in Sources */,
 				4580F50C1B6C987800C0576F /* main.swift in Sources */,
 				4580F50D1B6C987800C0576F /* StorageProtocols.swift in Sources */,

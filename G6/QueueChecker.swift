@@ -8,7 +8,7 @@
 
 import Foundation
 
-///	Provides checking for queue equality against current queue.
+///	Provides checking for queue equality against current caller queue.
 ///
 final class QueueChecker {
 
@@ -29,8 +29,10 @@ final class QueueChecker {
 			return	_queue
 		}
 	}
-	
-	///	:returns:	`true` if current calling queue equals to queue that
+
+	///	Checks current caller queue is an equal queue to a queue specified at initializer.
+	///
+	///	- returns:	`true` if current calling queue equals to queue that
 	///			the queue designated at initialiser.
 	func check() -> Bool {
 		let	context		=	dispatch_get_specific(&_KEYMEM)
@@ -42,6 +44,6 @@ final class QueueChecker {
 
 	private let	_queue		:	dispatch_queue_t
 	private var	_KEYMEM		=	UInt8(0)
-	private let	_idptr		:	UnsafeMutablePointer<UInt8>	//<	A marker pointer. Content of this pointer shouldn't be dereferenced at all.
+	private let	_idptr		:	UnsafeMutablePointer<Void>	//<	A marker pointer. Content of this pointer shouldn't be dereferenced at all.
 
 }

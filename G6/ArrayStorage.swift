@@ -8,33 +8,13 @@
 
 import Foundation
 
-///	Value vector storage.
+/// Value vector storage.
 ///
-///	:param:		T
-///			Vector element value type.
+/// -	parameter T:
+/// 	Vector element value type.
 ///
 public class ArrayStorage<T>: ArrayStorageType {
 
-	///	:param:		queue
-	///
-	///			Defines a queue that is allowed to perform I/O on this storage.
-	///			This queue must be a serial queue or you must guarantee serial
-	///			execution. Because "barriers" cannot be used on some global queues,
-	///			it is regarded as dangerous, and will not be allowed.
-	///
-	///			Even "reading" requires exclusive access to storage because
-	///			underlying store `Swift.Array` does not provide any explicit
-	///			guarantee of mutation-free-ness for internal memory on reading.
-	///			This restriction can be relaxed later if the guarantee to be
-	///			provided.
-	///
-	///			This object will debug-assert current execution queue to prevent
-	///			programmer error.
-	///
-	///			Default value is the main serial queue.
-	///
-	///
-	///
 	private init(_ initialArray: [T], queue: dispatch_queue_t = dispatch_get_main_queue()) {
 		_queueCheck	=	QueueChecker(queue: queue)
 		_array		=	initialArray
@@ -58,7 +38,7 @@ public class ArrayStorage<T>: ArrayStorageType {
 	public func register(@autoclosure delegate: ()->ArrayStorageDelegate, file: String = __FILE__, line: Int = __LINE__, function: String = __FUNCTION__) {
 		assert(_queueCheck.check())
 		_executeWithChecks {
-			_delegates.insert(delegate())
+			_delegates.insert(_ArrayStorageDelegateWeakBox(delegate: delegate()))
 
 			assert(_callSiteInfoMap[ObjectIdentifier(delegate())] == nil)
 			_callSiteInfoMap[ObjectIdentifier(delegate())]	=	_CallSiteInfo(file: file, line: line, function: function)
@@ -67,7 +47,7 @@ public class ArrayStorage<T>: ArrayStorageType {
 	public func deregister(delegate: ArrayStorageDelegate) {
 		assert(_queueCheck.check())
 		_executeWithChecks {
-			_delegates.remove(delegate)
+			_delegates.remove(_ArrayStorageDelegateWeakBox(delegate: delegate))
 
 			assert(_callSiteInfoMap[ObjectIdentifier(delegate)] != nil)
 			_callSiteInfoMap[ObjectIdentifier(delegate)]	=	nil
@@ -77,7 +57,7 @@ public class ArrayStorage<T>: ArrayStorageType {
 	///
 
 	private var	_array		:	[T]
-	private let	_delegates	=	WeakObjectSet<ArrayStorageDelegate>()
+	private var	_delegates	=	OrderingSet<_ArrayStorageDelegateWeakBox>()
 
 	///
 
@@ -110,8 +90,30 @@ private struct _CallSiteInfo {
 
 public class MutableArrayStorage<T>: ArrayStorage<T>, MutableArrayStorageType {
 
-	public init(_ initialArray: [T]) {
-		super.init(initialArray)
+	/// Instantiates with default queue that is the main serial queue.
+	public convenience init(_ initialArray: [T]) {
+		self.init(initialArray, queue: dispatch_get_main_queue())
+	}
+
+	/// Instantiates a mutable array storage.
+	///
+	/// -	parameter queue:
+	///
+	///	Defines a queue that is allowed to perform I/O on this storage.
+	///	This queue must be a serial queue or you must guarantee serial
+	///	execution.
+	///
+	///	Even "reading" requires exclusive access to storage because
+	///	underlying store `Swift.Array` does not provide any explicit
+	///	guarantee of mutation-free-ness for internal memory on reading.
+	///	This restriction can be relaxed later if the guarantee to be
+	///	provided.
+	///
+	///	This object will debug-assert current execution queue to prevent
+	///	programmer error.
+	///
+	public override init(_ initialArray: [T], queue: dispatch_queue_t) {
+		super.init(initialArray, queue: queue)
 	}
 
 	///
@@ -119,36 +121,31 @@ public class MutableArrayStorage<T>: ArrayStorage<T>, MutableArrayStorageType {
 	public func insert<C : CollectionType where C.Generator.Element == T, C.Index.Distance == Int>(newElements: C, atIndex index: Int) {
 		assert(index < _array.count)
 		_executeWithChecks {
-			let	range	=	index..<(index + count(newElements))
-			_delegates.map { $0.willInsertRange(range) }
+			let	range	=	index..<(index + newElements.count)
+			_delegates.map { $0.getOrCrash().willInsertRange(range) }
 			_array.splice(newElements, atIndex: index)
-			_delegates.map { $0.didInsertRange(range) }
+			_delegates.map { $0.getOrCrash().didInsertRange(range) }
 		}
 	}
 	public func update<C : CollectionType where C.Generator.Element == T, C.Index.Distance == Int>(range: Range<Int>, with newElements: C) {
-		assert(distance(range.startIndex, range.endIndex) == count(newElements), "Number of `newElements` must be equal with number of elements in replacing range.")
+		assert(distance(range.startIndex, range.endIndex) == newElements.count, "Number of `newElements` must be equal with number of elements in replacing range.")
 		_executeWithChecks {
-			_delegates.map { $0.willUpdateRange(range) }
+			_delegates.map { $0.getOrCrash().willUpdateRange(range) }
 			_array.replaceRange(range, with: newElements)
-			_delegates.map { $0.didUpdateRange(range) }
+			_delegates.map { $0.getOrCrash().didUpdateRange(range) }
 		}
 	}
 	public func delete(range: Range<Int>) {
 		assert(range.startIndex >= _array.startIndex)
 		assert(range.endIndex <= _array.endIndex)
 		_executeWithChecks {
-			_delegates.map { $0.willDeleteRange(range) }
+			_delegates.map { $0.getOrCrash().willDeleteRange(range) }
 			_array.removeRange(range)
-			_delegates.map { $0.didDeleteRange(range) }
+			_delegates.map { $0.getOrCrash().didDeleteRange(range) }
 		}
 	}
 
 }
-//public extension MutableArrayStorage {
-//	public func insert<C : CollectionType where C.Generator.Element == T>(newElements: C, atIndex index: Int) {
-//		insert(index..<count(newElements), newElements)
-//	}
-//}
 
 
 
@@ -159,92 +156,27 @@ public class MutableArrayStorage<T>: ArrayStorage<T>, MutableArrayStorageType {
 
 
 
-
-
-
-
-
-
-
-
-class ThreadSafeMutableArrayStorage<T>: MutableArrayStorage<T> {
-	override func insert<C : CollectionType where C.Generator.Element == T, C.Index.Distance == Int>(newElements: C, atIndex index: Int) {
-
+private struct _ArrayStorageDelegateWeakBox: Hashable {
+	weak var delegate: ArrayStorageDelegate?
+	var hashValue: Int {
+		get {
+			return	ObjectIdentifier(delegate!).hashValue
+		}
 	}
-	override func update<C : CollectionType where C.Generator.Element == T, C.Index.Distance == Int>(range: Range<Int>, with newElements: C) {
-
-	}
-	override func delete(range: Range<Int>) {
-
+	func getOrCrash() -> ArrayStorageDelegate {
+		if let delegate = delegate {
+			return	delegate
+		}
+		else {
+			fatalError("The delegate has already been gone away...")
+		}
 	}
 }
-
-
-//
-//
-/////	An `ArrayStorage` that replicates data from an `ArrayStorage` that
-/////	is running in an another thread asynchrnously.
-/////
-/////	You must call `process` to run queued mutation messages in a specific
-/////	thread. Because there's no good way to inject code into a specific
-/////	thread in FIFO order. You MUST call this method on the thread that
-/////	created this object. This object does not use extra synchronization
-/////	devices, so it's your responsibility to provide thread safety.
-/////
-/////	This object must run in single thread, and should not be accessed from
-/////	multiple threads. That means this object doesn't play well with GCD.
-/////	You need to make a new thread if you want to use this object in non-main
-/////	thread.
-/////
-/////
-//public class ReplicatingArrayStorage<T>: ArrayStorage<T> {
-//	///	Processes queued mutations.
-//	public func process() {
-//
-//	}
-//}
-//private final class _Replicator<T>: ArrayStorageDelegate {
-//	init(_ queue: dispatch_queue_t) {
-//		self.targetQueue	=	queue
-//	}
-//
-//	weak var	sourceStorage	:	ArrayStorage<T>?
-//	let		targetQueue	:	dispatch_queue_t
-//
-//	var		srcThreadMCQ	=	Array<()->()>()
-//	var		dstThreadMCQ	=	Array<()->()>()
-//
-//	///
-//
-//	private func willInsertRange(range: Range<Int>) {
-//		let	newElements	=	sourceStorage!.array[range]
-//		dispatch_async(targetQueue) { [weak self] in
-//
-//		}
-//		dispatch_async(targetQueue) { [weak self] in
-//			self!.targetStorage!._array.insert(self!.sourceStorage!.array[range], atIndex: range.startIndex)
-//			return
-//		}
-//	}
-//	private func didInsertRange(range: Range<Int>) {
-//	}
-//	private func willUpdateRange(range: Range<Int>) {
-//	}
-//	private func didUpdateRange(range: Range<Int>) {
-//	}
-//	private func willDeleteRange(range: Range<Int>) {
-//	}
-//	private func didDeleteRange(range: Range<Int>) {
-//	}
-//}
-//
-
-
-
-
-
-
-
+private func == (a: _ArrayStorageDelegateWeakBox, b: _ArrayStorageDelegateWeakBox) -> Bool {
+	let	a1	=	a.getOrCrash()
+	let	b1	=	b.getOrCrash()
+	return	a1 === b1
+}
 
 
 

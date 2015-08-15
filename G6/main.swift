@@ -9,10 +9,10 @@
 
 final class V1: ValueStorageDelegate {
 	func willSet() {
-		println("A")
+		print("A")
 	}
 	func didSet() {
-		println("B")
+		print("B")
 	}
 }
 
@@ -21,5 +21,4 @@ let	v1	=	V1()
 v.register(v1)
 v.value		=	222
 v.deregister(v1)
-
 

@@ -6,10 +6,13 @@
 //  Copyright (c) 2015 Eonil. All rights reserved.
 //
 
+import Foundation
+
 ///	Scalar value storage.
 public class ValueStorage<T>: ValueStorageType {
 
-	private init(_ initialValue: T) {
+	private init(_ initialValue: T, queue: dispatch_queue_t) {
+		_queueChecker	=	QueueChecker(queue: queue)
 		_value		=	initialValue
 	}
 	deinit {
@@ -28,25 +31,25 @@ public class ValueStorage<T>: ValueStorageType {
 
 	public func register(delegate: ValueStorageDelegate) {
 		_executeWithThreadAndCastingCheck {
-			_delegates.insert(delegate)
+			_delegates.insert(_ValueStorageDelegateWeakBox(delegate: delegate))
 		}
 	}
 	public func deregister(delegate: ValueStorageDelegate) {
 		_executeWithThreadAndCastingCheck {
-			_delegates.remove(delegate)
+			_delegates.remove(_ValueStorageDelegateWeakBox(delegate: delegate))
 		}
 	}
 
 	///
 
-	private let	_threadChecker	=	ThreadChecker()
+	private let	_queueChecker	:	QueueChecker
 	private var	_isCasting	=	false
 
-	private let	_delegates	=	WeakObjectSet<ValueStorageDelegate>()
+	private var	_delegates	=	OrderingSet<_ValueStorageDelegateWeakBox>()
 	private var	_value		:	T
 
 	private func _executeWithThreadAndCastingCheck(@noescape run: ()->()) {
-		_threadChecker.assert()
+		assert(_queueChecker.check())
 		assert(_isCasting == false, "You cannot mutate this storage while a mutation event is on casting.")
 		_isCasting	=	true
 		run()
@@ -58,8 +61,24 @@ public class ValueStorage<T>: ValueStorageType {
 
 public class MutableValueStorage<T>: ValueStorage<T>, MutableValueStorageType {
 
-	public override init(_ initialValue: T) {
-		super.init(initialValue)
+	/// Instantiates with default queue that is the main serial queue.
+	public convenience init(_ initialValue: T) {
+		self.init(initialValue, queue: dispatch_get_main_queue())
+	}
+
+	/// Instantiates a mutable value storage.
+	///
+	/// -	parameter queue:
+	///
+	///	Defines a queue that is allowed to perform I/O on this storage.
+	///	This queue must be a serial queue or you must guarantee serial
+	///	execution.
+	///
+	///	This object will debug-assert current execution queue to prevent
+	///	programmer error.
+	///
+	public override init(_ initialValue: T, queue: dispatch_queue_t) {
+		super.init(initialValue, queue: queue)
 	}
 	public override var value: T {
 		get {
@@ -67,14 +86,9 @@ public class MutableValueStorage<T>: ValueStorage<T>, MutableValueStorageType {
 		}
 		set {
 			_executeWithThreadAndCastingCheck {
-				let	a	=	Array(_delegates)
-				println(a)
-				for d in a {
-					d.willSet()
-				}
-//				_delegates.map({ $0.willSet() })
+				_delegates.map { $0.getOrCrash().willSet() }
 				_value	=	newValue
-//				_delegates.map({ $0.didSet() })
+				_delegates.map { $0.getOrCrash().didSet() }
 			}
 		}
 	}
@@ -84,4 +98,37 @@ public class MutableValueStorage<T>: ValueStorage<T>, MutableValueStorageType {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+private struct _ValueStorageDelegateWeakBox: Hashable {
+	weak var delegate: ValueStorageDelegate?
+	var hashValue: Int {
+		get {
+			return	ObjectIdentifier(delegate!).hashValue
+		}
+	}
+	func getOrCrash() -> ValueStorageDelegate {
+		if let delegate = delegate {
+			return	delegate
+		}
+		else {
+			fatalError("The delegate has already been gone away...")
+		}
+	}
+}
+private func == (a: _ValueStorageDelegateWeakBox, b: _ValueStorageDelegateWeakBox) -> Bool {
+	let	a1	=	a.getOrCrash()
+	let	b1	=	b.getOrCrash()
+	return	a1 === b1
+}
 
