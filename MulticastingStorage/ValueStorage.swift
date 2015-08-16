@@ -44,13 +44,22 @@ public class ValueStorage<T>: ValueStorageType {
 
 	public typealias	Handler		=	()->()
 
-	public func registerWillSet(identifier: ObjectIdentifier, handler: Handler) {
+
+	public func registerWillSet(@autoclosure identifier: ()->ObjectIdentifier, file: String = __FILE__, line: Int = __LINE__, function: String = __FUNCTION__, handler: Handler) {
+		_callSiteInfo.forWillSet[identifier()]	=	CallSiteInfo(file: file, line: line, function: function)
+		_registerWillSetImpl(identifier(), handler: handler)
+	}
+	private func _registerWillSetImpl(identifier: ObjectIdentifier, handler: Handler) {
 		_executeWithThreadAndCastingCheck {
 			assert(_handlers.onWillSet[identifier] == nil)
 			_handlers.onWillSet[identifier]	=	handler
 		}
 	}
-	public func registerDidSet(identifier: ObjectIdentifier, handler: Handler) {
+	public func registerDidSet(@autoclosure identifier: ()->ObjectIdentifier, file: String = __FILE__, line: Int = __LINE__, function: String = __FUNCTION__, handler: Handler) {
+		_callSiteInfo.forDidSet[identifier()]	=	CallSiteInfo(file: file, line: line, function: function)
+		_registerDidSetImpl(identifier(), handler: handler)
+	}
+	private func _registerDidSetImpl(identifier: ObjectIdentifier, handler: Handler) {
 		_executeWithThreadAndCastingCheck {
 			assert(_handlers.onDidSet[identifier] == nil)
 			_handlers.onDidSet[identifier]	=	handler
@@ -61,12 +70,14 @@ public class ValueStorage<T>: ValueStorageType {
 			assert(_handlers.onWillSet[identifier] != nil)
 			_handlers.onWillSet[identifier]	=	nil
 		}
+		_callSiteInfo.forWillSet[identifier]	=	nil
 	}
 	public func deregisterDidSet(identifier: ObjectIdentifier) {
 		_executeWithThreadAndCastingCheck {
 			assert(_handlers.onDidSet[identifier] != nil)
 			_handlers.onDidSet[identifier]	=	nil
 		}
+		_callSiteInfo.forDidSet[identifier]	=	nil
 	}
 
 	///
@@ -76,6 +87,8 @@ public class ValueStorage<T>: ValueStorageType {
 
 	private var	_handlers	=	(onWillSet: [ObjectIdentifier: Handler](), onDidSet: [ObjectIdentifier: Handler]())
 	private var	_value		:	T
+
+	private var	_callSiteInfo	=	(forWillSet: [ObjectIdentifier: CallSiteInfo](), forDidSet: [ObjectIdentifier: CallSiteInfo]())
 
 	private func _executeWithThreadAndCastingCheck(@noescape run: ()->()) {
 		assert(_queueChecker.check())

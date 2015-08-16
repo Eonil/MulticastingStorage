@@ -33,8 +33,8 @@ public class ArrayStorage<T>: ArrayStorageType {
 		}
 	}
 
-	///	You're responsible to keep the `delegate` alive while
-	///	that is registered to this object.
+	/// You're responsible to keep the `delegate` alive while
+	/// that is registered to this object.
 	public func register(@autoclosure delegate: ()->ArrayStorageDelegate, file: String = __FILE__, line: Int = __LINE__, function: String = __FUNCTION__) {
 		assert(_queueCheck.check())
 		_executeWithChecks {

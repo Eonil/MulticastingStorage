@@ -8,21 +8,21 @@
 
 
 
-///	DESIGN GOALS
-///	------------
+/// DESIGN GOALS
+/// ============
 ///
-///	-	Simple and intuitive as much as possible.
-///	-	Least encoding/decoding efforts.
-///	-	Prohibit mutating in event casting.
-///	-	Prohibit mutating from different threads.
+/// -	Simple and intuitive as much as possible.
+/// -	Least encoding/decoding efforts.
+/// -	Prohibit mutating in event casting.
+/// -	Prohibit mutating from different threads.
 
 
 
 
 
 
-///	If everything is configured with coroutines, there's no need for
-///	state-less signaling.
+/// If everything is configured with coroutines, there's no need for
+/// state-less signaling.
 
 
 
@@ -64,8 +64,8 @@ public protocol MutableValueStorageType: ValueStorageType {
 }
 public protocol MutableArrayStorageType: ArrayStorageType {
 	func insert<C : CollectionType where C.Generator.Element == Element, C.Index.Distance == Int>(newElements: C, atIndex index: Int)
-	///	Replaces elements in consecutive range.
-	///	Count of `newElements` must be equal to count of `range`.
+	/// Replaces elements in consecutive range.
+	/// Count of `newElements` must be equal to count of `range`.
 	func update<C : CollectionType where C.Generator.Element == Element, C.Index.Distance == Int>(range: Range<Int>, with newElements: C)
 	func delete(range: Range<Int>)
 }

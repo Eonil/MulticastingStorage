@@ -30,10 +30,10 @@ final class QueueChecker {
 		}
 	}
 
-	///	Checks current caller queue is an equal queue to a queue specified at initializer.
+	/// Checks current caller queue is an equal queue to a queue specified at initializer.
 	///
-	///	- returns:	`true` if current calling queue equals to queue that
-	///			the queue designated at initialiser.
+	/// - returns:	`true` if current calling queue equals to queue that
+	///		the queue designated at initialiser.
 	func check() -> Bool {
 		let	context		=	dispatch_get_specific(&_KEYMEM)
 		let	equality	=	context == _idptr

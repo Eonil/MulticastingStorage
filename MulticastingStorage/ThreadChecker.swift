@@ -8,14 +8,14 @@
 
 import Foundation
 
-///	Checks thread equality by thread ID.
+/// Checks thread equality by thread ID.
 ///	
-///	CAVEAT
-///	------
-///	`check` may produce false positive if thread ID has been re-used by system.
-///	I don't think there's a reliable way to detect re-used thread ID.
+/// CAVEAT
+/// ------
+/// `check` may produce false positive if thread ID has been re-used by system.
+/// I don't think there's a reliable way to detect re-used thread ID.
 ///
-///	Anyway, this guarantees to produce correct result for main-thread.
+/// Anyway, this guarantees to produce correct result for main-thread.
 ///
 @available(*, deprecated=0)
 final class ThreadChecker {

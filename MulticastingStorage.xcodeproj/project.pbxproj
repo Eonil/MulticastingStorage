@@ -27,6 +27,7 @@
 		455EE2411B7EEFF700D5AA56 /* OrderingSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 451372481B7ECBE500ED9829 /* OrderingSet.swift */; };
 		455EE2421B7EEFF700D5AA56 /* StorageProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4580F5071B6C987800C0576F /* StorageProtocols.swift */; };
 		455EE2431B7EEFF700D5AA56 /* ThreadChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4580F5081B6C987800C0576F /* ThreadChecker.swift */; };
+		45B185561B7F9A84004E3B28 /* CallSiteInfoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B185551B7F9A84004E3B28 /* CallSiteInfoManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +70,7 @@
 		4580F5091B6C987800C0576F /* ValueStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValueStorage.swift; sourceTree = "<group>"; };
 		4580F50A1B6C987800C0576F /* WeakObjectSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeakObjectSet.swift; sourceTree = "<group>"; };
 		45AAB7851B72E320005C6668 /* Atomics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Atomics.swift; sourceTree = "<group>"; };
+		45B185551B7F9A84004E3B28 /* CallSiteInfoManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallSiteInfoManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +110,7 @@
 				4580F50A1B6C987800C0576F /* WeakObjectSet.swift */,
 				451372481B7ECBE500ED9829 /* OrderingSet.swift */,
 				45AAB7851B72E320005C6668 /* Atomics.swift */,
+				45B185551B7F9A84004E3B28 /* CallSiteInfoManager.swift */,
 				451372551B7ED50D00ED9829 /* Info.plist */,
 			);
 			path = MulticastingStorage;
@@ -284,6 +287,7 @@
 				455EE1CF1B7EDAFE00D5AA56 /* Atomics.swift in Sources */,
 				455EE1CC1B7EDAFE00D5AA56 /* QueueChecker.swift in Sources */,
 				455EE1C81B7EDAFE00D5AA56 /* StorageProtocols.swift in Sources */,
+				45B185561B7F9A84004E3B28 /* CallSiteInfoManager.swift in Sources */,
 				455EE1C91B7EDAFE00D5AA56 /* ValueStorage.swift in Sources */,
 				455EE1CD1B7EDAFE00D5AA56 /* WeakObjectSet.swift in Sources */,
 				455EE1CA1B7EDAFE00D5AA56 /* ArrayStorage.swift in Sources */,
@@ -515,6 +519,7 @@
 				455EE2301B7EEF9000D5AA56 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4580F4181B691E9F00C0576F /* Build configuration list for PBXProject "MulticastingStorage" */ = {
 			isa = XCConfigurationList;
