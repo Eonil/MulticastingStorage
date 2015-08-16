@@ -38,8 +38,8 @@ public class ValueStorage<T>: ValueStorageType {
 		_value		=	initialValue
 	}
 	deinit {
-		assert(_handlers.onWillSet.count == 0, "You must `deregister` all delegates from this storage before this storage object dies.")
-		assert(_handlers.onDidSet.count == 0, "You must `deregister` all delegates from this storage before this storage object dies.")
+		assert(_handlers.forWillSet.count == 0, "You must `deregister` all delegates from this storage before this storage object dies.")
+		assert(_handlers.forDidSet.count == 0, "You must `deregister` all delegates from this storage before this storage object dies.")
 	}
 
 	///
@@ -57,54 +57,120 @@ public class ValueStorage<T>: ValueStorageType {
 
 
 	public func registerWillSet(@autoclosure identifier: ()->ObjectIdentifier, file: String = __FILE__, line: Int = __LINE__, function: String = __FUNCTION__, handler: Handler) {
-		_executeWithChecks {
+		_executeWithAllChecks {
 			_registrationCallSites.forWillSet[identifier()]	=	CallSiteInfo(file: file, line: line, function: function)
 			_registerWillSetImpl(identifier(), handler: handler)
 		}
 	}
 	public func registerDidSet(@autoclosure identifier: ()->ObjectIdentifier, file: String = __FILE__, line: Int = __LINE__, function: String = __FUNCTION__, handler: Handler) {
-		_executeWithChecks {
+		_executeWithAllChecks {
 			_registrationCallSites.forDidSet[identifier()]	=	CallSiteInfo(file: file, line: line, function: function)
 			_registerDidSetImpl(identifier(), handler: handler)
 		}
 	}
 
 	public func deregisterWillSet(identifier: ObjectIdentifier) {
-		_executeWithChecks(identifier) {
+		_executeWithAllChecks {
 			_deregisterWillSetImpl(identifier)
 			_registrationCallSites.forWillSet[identifier]	=	nil
 		}
 	}
 	public func deregisterDidSet(identifier: ObjectIdentifier) {
-		_executeWithChecks(identifier) {
+		_executeWithAllChecks {
 			_deregisterDidSetImpl(identifier)
 			_registrationCallSites.forDidSet[identifier]	=	nil
 		}
 	}
 
+	/// Queues registering of a will-set handler.
+	///
+	/// You can use this method to register a handler in a handler.
+	/// The handler will be registered after all handlers are executed.
+	///
+	/// This method can be called only in a handler.
+	/// You cannot queue handlers for duplicated identifiers.
+	///
+	public func queueRegisteringWillSetWhileCastingHandlers(identifier: ObjectIdentifier, handler: Handler) {
+		//	Serial-access check shouldn't be performed because it should already be done in caller...
+		_executeWithQueueCheck {
+			assert(_isCastingMutation.state == true)
+			assert(_handlerQueues.forRegistering.forWillSet[identifier] == nil)
+			_handlerQueues.forRegistering.forWillSet[identifier]	=	handler
+		}
+	}
+	/// Queues deregistering of a will-set handler.
+	///
+	/// You can use this method to deregister a handler in a handler.
+	/// The handler will be deregistered after all handlers are executed.
+	///
+	/// This method can be called only in a handler.
+	/// You cannot queue handlers for duplicated identifiers.
+	///
+	public func queueDeregisteringWillSetWhileCastingHandlers(identifier: ObjectIdentifier) {
+		//	Serial-access check shouldn't be performed because it should already be done in caller...
+		_executeWithQueueCheck {
+			assert(_isCastingMutation.state == true)
+			assert(_handlerQueues.forDeregistering.forWillSet.contains(identifier) == false)
+			_handlerQueues.forDeregistering.forWillSet.insert(identifier)
+		}
+	}
+
+	/// Queues registering of a did-set handler.
+	///
+	/// You can use this method to register a handler in a handler.
+	/// The handler will be registered after all handlers are executed.
+	///
+	/// This method can be called only in a handler.
+	/// You cannot queue handlers for duplicated identifiers.
+	///
+	public func queueRegisteringDidSetWhileCastingHandlers(identifier: ObjectIdentifier, handler: Handler) {
+		//	Serial-access check shouldn't be performed because it should already be done in caller...
+		_executeWithQueueCheck {
+			assert(_isCastingMutation.state == true)
+			assert(_handlerQueues.forRegistering.forDidSet[identifier] == nil)
+			_handlerQueues.forRegistering.forDidSet[identifier]		=	handler
+		}
+	}
+	/// Queues deregistering of a did-set handler.
+	///
+	/// You can use this method to deregister a handler in a handler.
+	/// The handler will be deregistered after all handlers are executed.
+	///
+	/// This method can be called only in a handler.
+	/// You cannot queue handlers for duplicated identifiers.
+	///
+	public func queueDeregisteringDidSetWhileCastingHandlers(identifier: ObjectIdentifier) {
+		//	Serial-access check shouldn't be performed because it should already be done in caller...
+		_executeWithQueueCheck {
+			assert(_isCastingMutation.state == true)
+			assert(_handlerQueues.forDeregistering.forDidSet.contains(identifier) == false)
+			_handlerQueues.forDeregistering.forDidSet.insert(identifier)
+		}
+	}
+
 	///
 
-	private var	_handlers		=	(onWillSet: [ObjectIdentifier: Handler](), onDidSet: [ObjectIdentifier: Handler]())
+	private var	_handlers		=	(forWillSet: [ObjectIdentifier: Handler](), forDidSet: [ObjectIdentifier: Handler]())
+	private var	_handlerQueues		=	(forRegistering: (forWillSet: [ObjectIdentifier: Handler](), forDidSet: [ObjectIdentifier: Handler]()), forDeregistering: (forWillSet: Set<ObjectIdentifier>(), forDidSet: Set<ObjectIdentifier>()))
 	private var	_value			:	T
 
 	///
 
 	private func _registerWillSetImpl(identifier: ObjectIdentifier, handler: Handler) {
-		assert(_handlers.onWillSet[identifier] == nil)
-		_handlers.onWillSet[identifier]	=	handler
+		assert(_handlers.forWillSet[identifier] == nil)
+		_handlers.forWillSet[identifier]		=	handler
+	}
+	private func _registerDidSetImpl(identifier: ObjectIdentifier, handler: Handler) {
+		assert(_handlers.forDidSet[identifier] == nil)
+		_handlers.forDidSet[identifier]			=	handler
 	}
 	private func _deregisterWillSetImpl(identifier: ObjectIdentifier) {
-		assert(_handlers.onWillSet[identifier] != nil)
-		_handlers.onWillSet[identifier]	=	nil
-	}
-
-	private func _registerDidSetImpl(identifier: ObjectIdentifier, handler: Handler) {
-		assert(_handlers.onDidSet[identifier] == nil)
-		_handlers.onDidSet[identifier]	=	handler
+		assert(_handlers.forWillSet[identifier] != nil)
+		_handlers.forWillSet[identifier]		=	nil
 	}
 	private func _deregisterDidSetImpl(identifier: ObjectIdentifier) {
-		assert(_handlers.onDidSet[identifier] != nil)
-		_handlers.onDidSet[identifier]	=	nil
+		assert(_handlers.forDidSet[identifier] != nil)
+		_handlers.forDidSet[identifier]			=	nil
 	}
 
 	///	Safety check support structures.
@@ -112,33 +178,36 @@ public class ValueStorage<T>: ValueStorageType {
 
 	private let	_queueChecker		:	QueueChecker
 	private var	_serialAccessChkFlag	=	AtomicBool(false)
-	private var	_isCastingMutation	=	false
-	private var	_castingHandlerID	:	ObjectIdentifier?
+	private var	_isCastingMutation	=	AtomicBool(false)
 	private var	_registrationCallSites	=	(forWillSet: [ObjectIdentifier: CallSiteInfo](), forDidSet: [ObjectIdentifier: CallSiteInfo]())
 
-	private func _executeWithChecks(deregisteringHandlerIdentifier: ObjectIdentifier? = nil, @noescape code: ()->()) {
-		_precheck(deregisteringHandlerIdentifier)
-		code()
-		_postcheck(deregisteringHandlerIdentifier)
+	private func _executeWithAllChecks(@noescape code: ()->()) {
+		_executeWithQueueCheck {
+			_executeWithThreadCheck {
+				_executeWithCastingCheck {
+					code()
+				}
+			}
+		}
 	}
-
-	private func _precheck(deregisteringHandlerIdentifier: ObjectIdentifier?) {
+	private func _executeWithQueueCheck(@noescape code: ()->()) {
 		assert(_queueChecker.check())
-
-		assert(_serialAccessChkFlag.state == false, "You cannot mutate this storage while a mutation event is still on casting.")
-		_serialAccessChkFlag.state	=	true
-
-		if deregisteringHandlerIdentifier == nil || deregisteringHandlerIdentifier != _castingHandlerID {
-			assert(_isCastingMutation	 == false, "You cannot mutate this storage while a mutation event is still on casting.")
-			_isCastingMutation		=	true
-		}
+		code()
 	}
-	private func _postcheck(deregisteringHandlerIdentifier: ObjectIdentifier?) {
-		if deregisteringHandlerIdentifier == nil || deregisteringHandlerIdentifier != _castingHandlerID {
-			_isCastingMutation		=	false
-		}
-
+	private func _executeWithThreadCheck(@noescape code: ()->()) {
+		assert(_serialAccessChkFlag.state == false, "You should not access this storage concurrently.")
+		_serialAccessChkFlag.state	=	true
+		code()
 		_serialAccessChkFlag.state	=	false
+	}
+	private func _executeWithCastingCheck(@noescape code: ()->()) {
+		assert(_isCastingMutation.state	 == false, "You cannot mutate value of or /register/deregister " +
+			"handlers to this storage while a mutation event is still on casting. However, you can " +
+			"use `queueRegistering/Deregistering~` methods to queue immediate registering or deregistering " +
+			"handlers at casting finish.")
+		_isCastingMutation.state		=	true
+		code()
+		_isCastingMutation.state		=	false
 	}
 }
 
@@ -209,23 +278,38 @@ public class MutableValueStorage<T>: ValueStorage<T>, MutableValueStorageType {
 			return	_value
 		}
 		set {
-			_executeWithChecks {
+			_executeWithAllChecks {
 				//	`Dictionary.values.map` has a bug that does not iterate any value.
 				//	Do not use it.
 
-				for (id, handler) in _handlers.onWillSet {
-					_castingHandlerID	=	id
+				for handler in _handlers.forWillSet.values {
 					handler()
-					_castingHandlerID	=	nil
 				}
 
 				_value	=	newValue
 
-				for (id, handler) in _handlers.onDidSet {
-					_castingHandlerID	=	id
+				for handler in _handlers.forDidSet.values {
 					handler()
-					_castingHandlerID	=	nil
 				}
+
+				///
+
+				for (id, handler) in _handlerQueues.forRegistering.forWillSet {
+					_registerWillSetImpl(id, handler: handler)
+				}
+				_handlerQueues.forRegistering.forWillSet.removeAll()
+				for (id) in _handlerQueues.forDeregistering.forWillSet {
+					_deregisterWillSetImpl(id)
+				}
+				_handlerQueues.forRegistering.forDidSet.removeAll()
+				for (id, handler) in _handlerQueues.forRegistering.forDidSet {
+					_registerDidSetImpl(id, handler: handler)
+				}
+				_handlerQueues.forDeregistering.forWillSet.removeAll()
+				for (id) in _handlerQueues.forDeregistering.forDidSet {
+					_deregisterDidSetImpl(id)
+				}
+				_handlerQueues.forDeregistering.forDidSet.removeAll()
 			}
 		}
 	}

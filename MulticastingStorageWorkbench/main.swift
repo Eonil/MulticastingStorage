@@ -7,6 +7,7 @@
 //
 
 import Foundation
+
 //@testable import MulticastingStorage
 
 public func testAllMuticastingStorageTests() {
@@ -45,9 +46,59 @@ public func testAllMuticastingStorageTests() {
 		v.deregister(v1)
 		assert(v1.markers == [1,2])
 	}
+
+	run {
+		var	records	=	[Int]()
+		let	v	=	MutableValueStorage<Int>(111)
+		v.registerDidSet(ObjectIdentifier(v)) {
+			records.append(1)
+			v.queueDeregisteringDidSetWhileCastingHandlers(ObjectIdentifier(v))
+		}
+		v.value		=	222
+		assert(records == [1])
+
+		v.value		=	333
+		assert(records == [1])
+
+		v.registerDidSet(ObjectIdentifier(v)) {
+			records.append(2)
+			v.queueRegisteringWillSetWhileCastingHandlers(ObjectIdentifier(v)) {
+				records.append(3)
+			}
+		}
+		v.value		=	444
+		assert(records == [1,2])
+
+		v.deregisterDidSet(ObjectIdentifier(v))
+		v.value		=	555
+		assert(records == [1,2,3])
+
+		v.deregisterWillSet(ObjectIdentifier(v))
+//		v.queueDeregisteringDidSetWhileCastingHandlers(ObjectIdentifier(v))	//	This should crash the program.
+	}
 }
 
 testAllMuticastingStorageTests()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
