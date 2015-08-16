@@ -62,14 +62,9 @@ public class ArrayStorage<T>: ArrayStorageType {
 	///
 
 	private func _executeWithChecks(@noescape run: ()->()) {
-		assert(_queueCheck.check(), "You can access this object only from specified queue. And the queue must be a serial queue.")
-		assert(_serialAccessCheckFlag.state == false, "You are accessing this storage from multiple threads simultaneously. That is prohibited.")
-		_serialAccessCheckFlag.state	=	true
-		assert(_isCasting == false, "You cannot mutate this storage while a mutation event is on casting.")
-		_isCasting	=	true
+		_precheck()
 		run()
-		_isCasting	=	false
-		_serialAccessCheckFlag.state	=	false
+		_postcheck()
 	}
 
 	///	Debuggig supports.
@@ -78,6 +73,21 @@ public class ArrayStorage<T>: ArrayStorageType {
 	private var	_isCasting		=	false
 	private var	_callSiteInfoMap	=	[ObjectIdentifier:_CallSiteInfo]()
 	private var	_serialAccessCheckFlag	=	AtomicBool(false)
+
+	private func _precheck() {
+		assert(_queueCheck.check(), "You can access this object only from specified queue. And the queue must be a serial queue.")
+
+		assert(_serialAccessCheckFlag.state == false, "You are accessing this storage from multiple threads simultaneously. That is prohibited.")
+		_serialAccessCheckFlag.state	=	true
+
+		assert(_isCasting == false, "You cannot mutate this storage while a mutation event is on casting.")
+		_isCasting			=	true
+	}
+	private func _postcheck() {
+		_isCasting			=	false
+
+		_serialAccessCheckFlag.state	=	false
+	}
 }
 
 private struct _CallSiteInfo {

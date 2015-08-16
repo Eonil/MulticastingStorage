@@ -28,6 +28,7 @@
 		455EE2421B7EEFF700D5AA56 /* StorageProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4580F5071B6C987800C0576F /* StorageProtocols.swift */; };
 		455EE2431B7EEFF700D5AA56 /* ThreadChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4580F5081B6C987800C0576F /* ThreadChecker.swift */; };
 		45B185561B7F9A84004E3B28 /* CallSiteInfoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B185551B7F9A84004E3B28 /* CallSiteInfoManager.swift */; };
+		45B185691B80B413004E3B28 /* CallSiteInfoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B185551B7F9A84004E3B28 /* CallSiteInfoManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -317,6 +318,7 @@
 				455EE2431B7EEFF700D5AA56 /* ThreadChecker.swift in Sources */,
 				455EE23C1B7EEFF700D5AA56 /* ArrayStorage.swift in Sources */,
 				455EE23E1B7EEFF700D5AA56 /* ValueStorage.swift in Sources */,
+				45B185691B80B413004E3B28 /* CallSiteInfoManager.swift in Sources */,
 				455EE2411B7EEFF700D5AA56 /* OrderingSet.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
