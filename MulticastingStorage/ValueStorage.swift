@@ -14,11 +14,22 @@ import Foundation
 
 /// Scalar value storage.
 ///
-/// - You **cannot** register/deregister event handlers in the event handlers.
-///   For example, you can deregister a handler on a did-set handler.
+/// Calling order between handlers is undefined. Do not depend on it.
+/// This is intentional design to simplify everything.
+/// Because the order is undefined, these behaviors are prohibited.
+///
+/// -	You **cannot** register/deregister a handler while mutation events are
+///	being cast. Because it's impossible to define whether the newrly added
+///	or removed handler should be called or not in the casting session.
+///	The only exception is deregistering a handler that is being called. 
+///	Because we know that the handler is already been called, so it can safely
+///	be removed.
+///
+///	This can be relaxed later if we can define a reasonable rule on those 
+///	things.
 ///
 /// This is immutable storage interface, and you cannot
-/// instantiate this class directly. Instead use `MutableValueStorage` class.
+/// instantiate this class directly. Instead, use `MutableValueStorage` class.
 ///
 public class ValueStorage<T>: ValueStorageType {
 
@@ -47,27 +58,27 @@ public class ValueStorage<T>: ValueStorageType {
 
 	public func registerWillSet(@autoclosure identifier: ()->ObjectIdentifier, file: String = __FILE__, line: Int = __LINE__, function: String = __FUNCTION__, handler: Handler) {
 		_executeWithChecks {
-			_callSiteInfo.forWillSet[identifier()]	=	CallSiteInfo(file: file, line: line, function: function)
+			_registrationCallSites.forWillSet[identifier()]	=	CallSiteInfo(file: file, line: line, function: function)
 			_registerWillSetImpl(identifier(), handler: handler)
 		}
 	}
 	public func registerDidSet(@autoclosure identifier: ()->ObjectIdentifier, file: String = __FILE__, line: Int = __LINE__, function: String = __FUNCTION__, handler: Handler) {
 		_executeWithChecks {
-			_callSiteInfo.forDidSet[identifier()]	=	CallSiteInfo(file: file, line: line, function: function)
+			_registrationCallSites.forDidSet[identifier()]	=	CallSiteInfo(file: file, line: line, function: function)
 			_registerDidSetImpl(identifier(), handler: handler)
 		}
 	}
 
 	public func deregisterWillSet(identifier: ObjectIdentifier) {
-		_executeWithChecks {
+		_executeWithChecks(identifier) {
 			_deregisterWillSetImpl(identifier)
-			_callSiteInfo.forWillSet[identifier]	=	nil
+			_registrationCallSites.forWillSet[identifier]	=	nil
 		}
 	}
 	public func deregisterDidSet(identifier: ObjectIdentifier) {
-		_executeWithChecks {
+		_executeWithChecks(identifier) {
 			_deregisterDidSetImpl(identifier)
-			_callSiteInfo.forDidSet[identifier]	=	nil
+			_registrationCallSites.forDidSet[identifier]	=	nil
 		}
 	}
 
@@ -96,34 +107,36 @@ public class ValueStorage<T>: ValueStorageType {
 		_handlers.onDidSet[identifier]	=	nil
 	}
 
-	///
-
-	private func _executeWithChecks(@noescape code: ()->()) {
-		_precheck()
-		code()
-		_postcheck()
-	}
-
-	///	Debugging support structures. Must be stripped away in optimized build.
-	///	Stripping is not yet implemented.
+	///	Safety check support structures.
 	///	Each value serves only one purpose.
 
 	private let	_queueChecker		:	QueueChecker
-	private var	_isCastingMutation	=	AtomicBool(false)
-	private var	_callSiteInfo		=	(forWillSet: [ObjectIdentifier: CallSiteInfo](), forDidSet: [ObjectIdentifier: CallSiteInfo]())
 	private var	_serialAccessChkFlag	=	AtomicBool(false)
+	private var	_isCastingMutation	=	false
+	private var	_castingHandlerID	:	ObjectIdentifier?
+	private var	_registrationCallSites	=	(forWillSet: [ObjectIdentifier: CallSiteInfo](), forDidSet: [ObjectIdentifier: CallSiteInfo]())
 
-	private func _precheck() {
+	private func _executeWithChecks(deregisteringHandlerIdentifier: ObjectIdentifier? = nil, @noescape code: ()->()) {
+		_precheck(deregisteringHandlerIdentifier)
+		code()
+		_postcheck(deregisteringHandlerIdentifier)
+	}
+
+	private func _precheck(deregisteringHandlerIdentifier: ObjectIdentifier?) {
 		assert(_queueChecker.check())
 
 		assert(_serialAccessChkFlag.state == false, "You cannot mutate this storage while a mutation event is still on casting.")
 		_serialAccessChkFlag.state	=	true
 
-		assert(_isCastingMutation.state == false, "You cannot mutate this storage while a mutation event is still on casting.")
-		_isCastingMutation.state	=	true
+		if deregisteringHandlerIdentifier == nil || deregisteringHandlerIdentifier != _castingHandlerID {
+			assert(_isCastingMutation	 == false, "You cannot mutate this storage while a mutation event is still on casting.")
+			_isCastingMutation		=	true
+		}
 	}
-	private func _postcheck() {
-		_isCastingMutation.state	=	false
+	private func _postcheck(deregisteringHandlerIdentifier: ObjectIdentifier?) {
+		if deregisteringHandlerIdentifier == nil || deregisteringHandlerIdentifier != _castingHandlerID {
+			_isCastingMutation		=	false
+		}
 
 		_serialAccessChkFlag.state	=	false
 	}
@@ -167,7 +180,8 @@ public extension ValueStorage {
 ///
 /// Follows all the attributes of `ValueStorage`. Also,
 ///
-/// - You **cannot** change `value` while its mutation events are firing.
+/// -	You **cannot** change `value` while its mutation events are firing.
+///	Because the "current state" becomes vague if it is allowed.
 ///
 public class MutableValueStorage<T>: ValueStorage<T>, MutableValueStorageType {
 
@@ -199,12 +213,18 @@ public class MutableValueStorage<T>: ValueStorage<T>, MutableValueStorageType {
 				//	`Dictionary.values.map` has a bug that does not iterate any value.
 				//	Do not use it.
 
-				for handler in _handlers.onWillSet.values {
+				for (id, handler) in _handlers.onWillSet {
+					_castingHandlerID	=	id
 					handler()
+					_castingHandlerID	=	nil
 				}
+
 				_value	=	newValue
-				for handler in _handlers.onDidSet.values {
+
+				for (id, handler) in _handlers.onDidSet {
+					_castingHandlerID	=	id
 					handler()
+					_castingHandlerID	=	nil
 				}
 			}
 		}
