@@ -10,7 +10,7 @@
 		4513725B1B7ED50D00ED9829 /* MulticastingStorage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 451372511B7ED50D00ED9829 /* MulticastingStorage.framework */; };
 		451372601B7ED50D00ED9829 /* MulticastingStorageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4513725F1B7ED50D00ED9829 /* MulticastingStorageTests.swift */; };
 		451372691B7ED55700ED9829 /* TestAll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 451372681B7ED55700ED9829 /* TestAll.swift */; };
-		455EE1C81B7EDAFE00D5AA56 /* StorageProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4580F5071B6C987800C0576F /* StorageProtocols.swift */; };
+		455EE1C81B7EDAFE00D5AA56 /* ChannelProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4580F5071B6C987800C0576F /* ChannelProtocols.swift */; };
 		455EE1C91B7EDAFE00D5AA56 /* ValueStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4580F5091B6C987800C0576F /* ValueStorage.swift */; };
 		455EE1CA1B7EDAFE00D5AA56 /* ArrayStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4580F5051B6C987800C0576F /* ArrayStorage.swift */; };
 		455EE1CB1B7EDAFE00D5AA56 /* ThreadChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4580F5081B6C987800C0576F /* ThreadChecker.swift */; };
@@ -25,10 +25,12 @@
 		455EE23F1B7EEFF700D5AA56 /* WeakObjectSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4580F50A1B6C987800C0576F /* WeakObjectSet.swift */; };
 		455EE2401B7EEFF700D5AA56 /* Atomics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AAB7851B72E320005C6668 /* Atomics.swift */; };
 		455EE2411B7EEFF700D5AA56 /* OrderingSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 451372481B7ECBE500ED9829 /* OrderingSet.swift */; };
-		455EE2421B7EEFF700D5AA56 /* StorageProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4580F5071B6C987800C0576F /* StorageProtocols.swift */; };
+		455EE2421B7EEFF700D5AA56 /* ChannelProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4580F5071B6C987800C0576F /* ChannelProtocols.swift */; };
 		455EE2431B7EEFF700D5AA56 /* ThreadChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4580F5081B6C987800C0576F /* ThreadChecker.swift */; };
 		45B185561B7F9A84004E3B28 /* CallSiteInfoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B185551B7F9A84004E3B28 /* CallSiteInfoManager.swift */; };
 		45B185691B80B413004E3B28 /* CallSiteInfoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B185551B7F9A84004E3B28 /* CallSiteInfoManager.swift */; };
+		45DDABBB1B822D1800F85E06 /* CompletionChannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45DDABBA1B822D1800F85E06 /* CompletionChannel.swift */; };
+		45DDABBC1B822D6C00F85E06 /* CompletionChannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45DDABBA1B822D1800F85E06 /* CompletionChannel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,12 +68,13 @@
 		455EE22A1B7EEF9000D5AA56 /* MulticastingStorageWorkbench */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = MulticastingStorageWorkbench; sourceTree = BUILT_PRODUCTS_DIR; };
 		455EE22C1B7EEF9000D5AA56 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		4580F5051B6C987800C0576F /* ArrayStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayStorage.swift; sourceTree = "<group>"; };
-		4580F5071B6C987800C0576F /* StorageProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageProtocols.swift; sourceTree = "<group>"; };
+		4580F5071B6C987800C0576F /* ChannelProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChannelProtocols.swift; sourceTree = "<group>"; };
 		4580F5081B6C987800C0576F /* ThreadChecker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThreadChecker.swift; sourceTree = "<group>"; };
 		4580F5091B6C987800C0576F /* ValueStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValueStorage.swift; sourceTree = "<group>"; };
 		4580F50A1B6C987800C0576F /* WeakObjectSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeakObjectSet.swift; sourceTree = "<group>"; };
 		45AAB7851B72E320005C6668 /* Atomics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Atomics.swift; sourceTree = "<group>"; };
 		45B185551B7F9A84004E3B28 /* CallSiteInfoManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallSiteInfoManager.swift; sourceTree = "<group>"; };
+		45DDABBA1B822D1800F85E06 /* CompletionChannel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompletionChannel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,9 +106,10 @@
 		451372521B7ED50D00ED9829 /* MulticastingStorage */ = {
 			isa = PBXGroup;
 			children = (
-				4580F5071B6C987800C0576F /* StorageProtocols.swift */,
+				4580F5071B6C987800C0576F /* ChannelProtocols.swift */,
 				4580F5091B6C987800C0576F /* ValueStorage.swift */,
 				4580F5051B6C987800C0576F /* ArrayStorage.swift */,
+				45DDABBA1B822D1800F85E06 /* CompletionChannel.swift */,
 				4580F5081B6C987800C0576F /* ThreadChecker.swift */,
 				451A5E381B7C209A009F60EB /* QueueChecker.swift */,
 				4580F50A1B6C987800C0576F /* WeakObjectSet.swift */,
@@ -287,11 +291,12 @@
 			files = (
 				455EE1CF1B7EDAFE00D5AA56 /* Atomics.swift in Sources */,
 				455EE1CC1B7EDAFE00D5AA56 /* QueueChecker.swift in Sources */,
-				455EE1C81B7EDAFE00D5AA56 /* StorageProtocols.swift in Sources */,
+				455EE1C81B7EDAFE00D5AA56 /* ChannelProtocols.swift in Sources */,
 				45B185561B7F9A84004E3B28 /* CallSiteInfoManager.swift in Sources */,
 				455EE1C91B7EDAFE00D5AA56 /* ValueStorage.swift in Sources */,
 				455EE1CD1B7EDAFE00D5AA56 /* WeakObjectSet.swift in Sources */,
 				455EE1CA1B7EDAFE00D5AA56 /* ArrayStorage.swift in Sources */,
+				45DDABBB1B822D1800F85E06 /* CompletionChannel.swift in Sources */,
 				455EE1CB1B7EDAFE00D5AA56 /* ThreadChecker.swift in Sources */,
 				455EE1CE1B7EDAFE00D5AA56 /* OrderingSet.swift in Sources */,
 			);
@@ -310,10 +315,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45DDABBC1B822D6C00F85E06 /* CompletionChannel.swift in Sources */,
 				455EE23D1B7EEFF700D5AA56 /* QueueChecker.swift in Sources */,
 				455EE23F1B7EEFF700D5AA56 /* WeakObjectSet.swift in Sources */,
 				455EE2401B7EEFF700D5AA56 /* Atomics.swift in Sources */,
-				455EE2421B7EEFF700D5AA56 /* StorageProtocols.swift in Sources */,
+				455EE2421B7EEFF700D5AA56 /* ChannelProtocols.swift in Sources */,
 				455EE22D1B7EEF9000D5AA56 /* main.swift in Sources */,
 				455EE2431B7EEFF700D5AA56 /* ThreadChecker.swift in Sources */,
 				455EE23C1B7EEFF700D5AA56 /* ArrayStorage.swift in Sources */,

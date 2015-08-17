@@ -1,5 +1,5 @@
 //
-//  StorageProtocols.swift
+//  ChannelProtocols.swift
 //  EditorCommon
 //
 //  Created by Hoon H. on 2015/08/01.
@@ -53,6 +53,9 @@ public protocol ArrayStorageType: class {
 	var array: [Element] { get }
 }
 
+public protocol CompletionChannelProtocol: class {
+	func queue(_: ()->())
+}
 
 
 

@@ -38,6 +38,10 @@ public class ValueStorage<T>: ValueStorageType {
 		_value		=	initialValue
 	}
 	deinit {
+		assert(_handlerQueues.forRegistering.forWillSet.count == 0)
+		assert(_handlerQueues.forRegistering.forDidSet.count == 0)
+		assert(_handlerQueues.forDeregistering.forWillSet.count == 0)
+		assert(_handlerQueues.forDeregistering.forDidSet.count == 0)
 		assert(_handlers.forWillSet.count == 0, "You must `deregister` all delegates from this storage before this storage object dies.")
 		assert(_handlers.forDidSet.count == 0, "You must `deregister` all delegates from this storage before this storage object dies.")
 	}
