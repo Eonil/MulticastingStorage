@@ -24,9 +24,11 @@ import Foundation
 ///	The only exception is deregistering a handler that is being called. 
 ///	Because we know that the handler is already been called, so it can safely
 ///	be removed.
-///
-///	This can be relaxed later if we can define a reasonable rule on those 
-///	things.
+///	
+///	If you're looking for something to notify completion, use 
+///	`CompletionChannel/Queue` instead of. They are designed for that purpose.
+///	Recommended design pattern is having both of state channel/storage and
+///	completion channel/queue.
 ///
 /// This is immutable storage interface, and you cannot
 /// instantiate this class directly. Instead, use `MutableValueStorage` class.
@@ -38,10 +40,6 @@ public class ValueStorage<T>: ValueStorageType {
 		_value		=	initialValue
 	}
 	deinit {
-		assert(_handlerQueues.forRegistering.forWillSet.count == 0)
-		assert(_handlerQueues.forRegistering.forDidSet.count == 0)
-		assert(_handlerQueues.forDeregistering.forWillSet.count == 0)
-		assert(_handlerQueues.forDeregistering.forDidSet.count == 0)
 		assert(_handlers.forWillSet.count == 0, "You must `deregister` all delegates from this storage before this storage object dies.")
 		assert(_handlers.forDidSet.count == 0, "You must `deregister` all delegates from this storage before this storage object dies.")
 	}
@@ -85,78 +83,10 @@ public class ValueStorage<T>: ValueStorageType {
 			_registrationCallSites.forDidSet[identifier]	=	nil
 		}
 	}
-
-	/// Queues registering of a will-set handler.
-	///
-	/// You can use this method to register a handler in a handler.
-	/// The handler will be registered after all handlers are executed.
-	///
-	/// This method can be called only in a handler.
-	/// You cannot queue handlers for duplicated identifiers.
-	///
-	public func queueRegisteringWillSetWhileCastingHandlers(identifier: ObjectIdentifier, handler: Handler) {
-		//	Serial-access check shouldn't be performed because it should already be done in caller...
-		_executeWithQueueCheck {
-			assert(_isCastingMutation.state == true)
-			assert(_handlerQueues.forRegistering.forWillSet[identifier] == nil)
-			_handlerQueues.forRegistering.forWillSet[identifier]	=	handler
-		}
-	}
-	/// Queues deregistering of a will-set handler.
-	///
-	/// You can use this method to deregister a handler in a handler.
-	/// The handler will be deregistered after all handlers are executed.
-	///
-	/// This method can be called only in a handler.
-	/// You cannot queue handlers for duplicated identifiers.
-	///
-	public func queueDeregisteringWillSetWhileCastingHandlers(identifier: ObjectIdentifier) {
-		//	Serial-access check shouldn't be performed because it should already be done in caller...
-		_executeWithQueueCheck {
-			assert(_isCastingMutation.state == true)
-			assert(_handlerQueues.forDeregistering.forWillSet.contains(identifier) == false)
-			_handlerQueues.forDeregistering.forWillSet.insert(identifier)
-		}
-	}
-
-	/// Queues registering of a did-set handler.
-	///
-	/// You can use this method to register a handler in a handler.
-	/// The handler will be registered after all handlers are executed.
-	///
-	/// This method can be called only in a handler.
-	/// You cannot queue handlers for duplicated identifiers.
-	///
-	public func queueRegisteringDidSetWhileCastingHandlers(identifier: ObjectIdentifier, handler: Handler) {
-		//	Serial-access check shouldn't be performed because it should already be done in caller...
-		_executeWithQueueCheck {
-			assert(_isCastingMutation.state == true)
-			assert(_handlerQueues.forRegistering.forDidSet[identifier] == nil)
-			_handlerQueues.forRegistering.forDidSet[identifier]		=	handler
-		}
-	}
-	/// Queues deregistering of a did-set handler.
-	///
-	/// You can use this method to deregister a handler in a handler.
-	/// The handler will be deregistered after all handlers are executed.
-	///
-	/// This method can be called only in a handler.
-	/// You cannot queue handlers for duplicated identifiers.
-	///
-	public func queueDeregisteringDidSetWhileCastingHandlers(identifier: ObjectIdentifier) {
-		//	Serial-access check shouldn't be performed because it should already be done in caller...
-		_executeWithQueueCheck {
-			assert(_isCastingMutation.state == true)
-			assert(_handlerQueues.forDeregistering.forDidSet.contains(identifier) == false)
-			_handlerQueues.forDeregistering.forDidSet.insert(identifier)
-		}
-	}
-
 	///
 
-	private var	_handlers		=	(forWillSet: [ObjectIdentifier: Handler](), forDidSet: [ObjectIdentifier: Handler]())
-	private var	_handlerQueues		=	(forRegistering: (forWillSet: [ObjectIdentifier: Handler](), forDidSet: [ObjectIdentifier: Handler]()), forDeregistering: (forWillSet: Set<ObjectIdentifier>(), forDidSet: Set<ObjectIdentifier>()))
-	private var	_value			:	T
+	private var	_handlers	=	(forWillSet: [ObjectIdentifier: Handler](), forDidSet: [ObjectIdentifier: Handler]())
+	private var	_value		:	T
 
 	///
 
@@ -285,35 +215,17 @@ public class MutableValueStorage<T>: ValueStorage<T>, MutableValueStorageType {
 			_executeWithAllChecks {
 				//	`Dictionary.values.map` has a bug that does not iterate any value.
 				//	Do not use it.
-
 				for handler in _handlers.forWillSet.values {
 					handler()
 				}
 
 				_value	=	newValue
 
+				//	`Dictionary.values.map` has a bug that does not iterate any value.
+				//	Do not use it.
 				for handler in _handlers.forDidSet.values {
 					handler()
 				}
-
-				///
-
-				for (id, handler) in _handlerQueues.forRegistering.forWillSet {
-					_registerWillSetImpl(id, handler: handler)
-				}
-				_handlerQueues.forRegistering.forWillSet.removeAll()
-				for (id) in _handlerQueues.forDeregistering.forWillSet {
-					_deregisterWillSetImpl(id)
-				}
-				_handlerQueues.forRegistering.forDidSet.removeAll()
-				for (id, handler) in _handlerQueues.forRegistering.forDidSet {
-					_registerDidSetImpl(id, handler: handler)
-				}
-				_handlerQueues.forDeregistering.forWillSet.removeAll()
-				for (id) in _handlerQueues.forDeregistering.forDidSet {
-					_deregisterDidSetImpl(id)
-				}
-				_handlerQueues.forDeregistering.forDidSet.removeAll()
 			}
 		}
 	}
