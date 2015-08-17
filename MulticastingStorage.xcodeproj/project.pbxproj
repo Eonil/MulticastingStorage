@@ -110,12 +110,7 @@
 				4580F5091B6C987800C0576F /* ValueStorage.swift */,
 				4580F5051B6C987800C0576F /* ArrayStorage.swift */,
 				45DDABBA1B822D1800F85E06 /* CompletionChannel.swift */,
-				4580F5081B6C987800C0576F /* ThreadChecker.swift */,
-				451A5E381B7C209A009F60EB /* QueueChecker.swift */,
-				4580F50A1B6C987800C0576F /* WeakObjectSet.swift */,
-				451372481B7ECBE500ED9829 /* OrderingSet.swift */,
-				45AAB7851B72E320005C6668 /* Atomics.swift */,
-				45B185551B7F9A84004E3B28 /* CallSiteInfoManager.swift */,
+				45DDABBD1B8231BE00F85E06 /* (check supports) */,
 				451372551B7ED50D00ED9829 /* Info.plist */,
 			);
 			path = MulticastingStorage;
@@ -158,6 +153,19 @@
 				455EE22A1B7EEF9000D5AA56 /* MulticastingStorageWorkbench */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		45DDABBD1B8231BE00F85E06 /* (check supports) */ = {
+			isa = PBXGroup;
+			children = (
+				4580F5081B6C987800C0576F /* ThreadChecker.swift */,
+				451A5E381B7C209A009F60EB /* QueueChecker.swift */,
+				4580F50A1B6C987800C0576F /* WeakObjectSet.swift */,
+				451372481B7ECBE500ED9829 /* OrderingSet.swift */,
+				45AAB7851B72E320005C6668 /* Atomics.swift */,
+				45B185551B7F9A84004E3B28 /* CallSiteInfoManager.swift */,
+			);
+			name = "(check supports)";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
