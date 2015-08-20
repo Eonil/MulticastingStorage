@@ -117,8 +117,8 @@ public class ValueStorage<T>: ValueStorageType {
 
 	private func _executeWithAllChecks(@noescape code: ()->()) {
 		_executeWithQueueCheck {
-			_executeWithThreadCheck {
-				_executeWithCastingCheck {
+			_executeWithCastingCheck {
+				_executeWithThreadCheck {
 					code()
 				}
 			}

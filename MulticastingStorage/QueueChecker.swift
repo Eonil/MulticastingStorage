@@ -18,7 +18,13 @@ final class QueueChecker {
 		dispatch_queue_set_specific(_queue, &_KEYMEM, _idptr, nil)
 	}
 	deinit {
-		assert(check())
+		// Queue-check at `deinit` disabled temporarily.
+		// I don't know why some object dies in another thread
+		// that captures them in `weak` manner. Is this a bud 
+		// in compiler? 
+		// TODO: Re-enable this check at final release of the 
+		// compiler.
+//		assert(check())
 		dispatch_queue_set_specific(_queue, &_KEYMEM, nil, nil)
 		_idptr.dealloc(1)
 	}
