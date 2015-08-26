@@ -133,12 +133,12 @@ public class MutableArrayStorage<T>: ArrayStorage<T>, MutableArrayStorageType {
 		_executeWithChecks {
 			let	range	=	index..<(index + newElements.count)
 			_delegates.map { $0.getOrCrash().willInsertRange(range) }
-			_array.splice(newElements, atIndex: index)
+			_array.insertContentsOf(newElements, at: index)
 			_delegates.map { $0.getOrCrash().didInsertRange(range) }
 		}
 	}
 	public func update<C : CollectionType where C.Generator.Element == T, C.Index.Distance == Int>(range: Range<Int>, with newElements: C) {
-		assert(distance(range.startIndex, range.endIndex) == newElements.count, "Number of `newElements` must be equal with number of elements in replacing range.")
+		assert(range.startIndex.distanceTo(range.endIndex) == newElements.count, "Number of `newElements` must be equal with number of elements in replacing range.")
 		_executeWithChecks {
 			_delegates.map { $0.getOrCrash().willUpdateRange(range) }
 			_array.replaceRange(range, with: newElements)
