@@ -54,7 +54,8 @@ public protocol ArrayStorageType: class {
 }
 
 public protocol CompletionChannelProtocol: class {
-	func queue(_: ()->())
+	typealias	Element
+	func queue(_: Element->())
 }
 
 
