@@ -21,7 +21,7 @@ public class CompletionChannel: CompletionChannelProtocol {
 	private init() {
 	}
 	deinit {
-		assert(_isCasted == true, "You haven't `cast`ed this queue, and it seems programmer error. You should always call `cast` completion. Do not use this for optional event.")
+		assert(_callbacks.count == 0, "You haven't `cast`ed this queue, and it seems to be a programmer error. You should always consume all queued callbacks by calling `cast`. Do not use this for optional event.")
 	}
 
 	///
