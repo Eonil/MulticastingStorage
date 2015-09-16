@@ -66,6 +66,10 @@ public class CompletionQueue: CompletionChannel {
 		}
 		_callbacks	=	[]
 	}
+
+	public func reset() {
+		_isCasted	=	false
+	}
 }
 
 
